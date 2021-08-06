@@ -5,6 +5,9 @@ ruby '2.6.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
+# require:false > rubocopはターミナルでしか使わないためinstallする必要はない
+gem 'rubocop', require:false
+gem 'rubocop-rails', require:false
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1.4'
 # Use Puma as the app server

@@ -1,3 +1,5 @@
+![ER](https://user-images.githubusercontent.com/67850944/128467598-8acedd09-de25-485d-95ea-f0f80c2deae3.jpg)
+
 # Ruby on Rails on Docker
 
 ## Ruby version
