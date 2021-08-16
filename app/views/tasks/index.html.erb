@@ -1,14 +1,21 @@
+<style>
+  table, td, th { border: 1px black solid }
+</style>
+
 <h1>タスク一覧</h1>
 <table>
+  <thead>
+    <tr>
+      <th>title</th>
+      <th>description</th>
+    </tr>
+  </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
-        <th>title: </th>
-        <td><%= task.title %></td>
-      </tr>
-      <tr>
-        <th>description: </th>
+        <td><%= task.title %></td>        
         <td><%= task.description %></td>
+        <td><%= link_to '詳細', task %></td>
       </tr>
     <% end %>
   </tbody>
