@@ -1,0 +1,17 @@
+<style>
+  form div { margin-bottom: 30px }
+</style>
+
+<%= form_with(model: task, local: true) do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.submit "送信" %>
+  </div>
+<% end %>
