@@ -1,12 +1,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update]
-  
+
   def index
     @tasks = Task.all
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def new
