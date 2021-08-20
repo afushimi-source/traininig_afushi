@@ -1,17 +1,19 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[show edit update]
-
   def index
     @tasks = Task.all
   end
 
-  def show; end
+  def show
+    @task = Task.find(params[:id])
+  end
 
   def new
     @task = Task.new
   end
 
-  def edit; end
+  def edit
+    @task = Task.find(params[:id])
+  end
 
   def create
     @task = Task.new(task_params)
@@ -35,10 +37,6 @@ class TasksController < ApplicationController
   end
 
   private
-
-  def set_task
-    @task = Task.find(params[:id])
-  end
 
   def task_params
     params.require(:task).permit(:title, :description)
