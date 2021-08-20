@@ -9,6 +9,7 @@ gem 'rails', '~> 5.2.3'
 gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rspec'
+gem 'rails-i18n', '~> 5.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1.4'
 # Use Puma as the app server
