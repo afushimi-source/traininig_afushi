@@ -39,10 +39,11 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to tasks_url
-    flash[:success] = "Task was successfully destroyed!"
+    flash[:success] = 'Task was successfully destroyed!'
   end
 
   private
+
   def task_params
     params.require(:task).permit(:title, :description)
   end
