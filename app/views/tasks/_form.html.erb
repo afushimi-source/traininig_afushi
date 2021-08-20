@@ -1,6 +1,18 @@
 <style>
-  form div { margin-bottom: 30px }
+  form div { margin-bottom: 30px; display: flex}
+  .alert-error { color: red }
 </style>
+
+<% if @task.errors.any? %>
+<div class="alert alert-error">
+  <h3>err</h3>
+  <ul>
+    <% @task.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end -%>
+  </ul>
+</div>
+<% end -%>
 
 <%= form_with(model: task, local: true) do |f| %>
   <div>
