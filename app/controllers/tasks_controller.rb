@@ -27,18 +27,20 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = Task.find(params[:id])
     if @task.update(task_params)
-      flash[:success] = t 'tasks.flash.edit.success'
+      flash[:success] = t 'tasks.flash.edit_success'
       redirect_to @task
     else
-      flash.now[:error] = t 'tasks.flash.edit.error'
+      flash.now[:error] = t 'tasks.flash.edit_error'
       render :edit
     end
   end
 
   def destroy
+    @task = Task.find(params[:id])
     @task.destroy
-    flash[:success] = t 'tasks.flash.success'
+    flash[:success] = t 'tasks.flash.destroy_success'
     redirect_to tasks_url
   end
 
