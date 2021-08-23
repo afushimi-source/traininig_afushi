@@ -1,29 +1,25 @@
 <style>
-  form div { margin-bottom: 30px; display: flex}
+  .form-wrap { margin-bottom: 30px }
+  form div div { display: flex }
   .alert-error { color: red }
 </style>
 
-<% if @task.errors.any? %>
-<div class="alert alert-error">
-  <h3>err</h3>
-  <ul>
-    <% @task.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end -%>
-  </ul>
-</div>
-<% end -%>
-
 <%= form_with(model: task, local: true) do |f| %>
-  <div>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+  <div class="form-wrap">
+    <div>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <%= render "layouts/error_messages", model: task, attribute: :title %>
   </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+  <div class="form-wrap">
+    <div>
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+    <%= render "layouts/error_messages", model: task, attribute: :description %>
   </div>
-  <div>
+  <div class="form-wrap">
     <%= f.submit "送信" %>
   </div>
 <% end %>
