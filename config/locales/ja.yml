@@ -7,7 +7,15 @@ ja:
       task:
         title: 'タスク名'
         description: 'タスクの詳細'
+  tasks:
+    flash:
+      create_success: "タスクの登録に成功しました"
+      create_error: "タスクの登録に失敗しました"
+      edit_success: "タスクの更新に成功しました"
+      edit_error: "タスクの更新に失敗しました"
+      destroy_success: "タスクの削除に成功しました"
   errors:
     format: "%{attribute}%{message}"
     messages:
       blank: を入力してください
+
