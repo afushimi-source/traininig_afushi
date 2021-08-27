@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Task', type: :system do
   before { driven_by :rack_test }
 
-  describe 'tasks/index' do
-    (0..2).each { |_n| FactoryBot.create(:task) }
+  describe 'index' do
+    (0..2).each { |_| FactoryBot.create(:task) }
     let(:title_in_db) { Task.all.order(created_at: :desc).pluck(:title) }
 
     it 'is valid order' do
