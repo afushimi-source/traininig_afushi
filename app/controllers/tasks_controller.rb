@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: 'DESC')
+    direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+    column = Task.column_names.include?(params[:column]) ? params[:column] : 'created_at'
+    @tasks = Task.all.order("#{column} #{direction}")
   end
 
   def show

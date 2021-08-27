@@ -1,16 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe 'Task', type: :system do
+RSpec.describe 'tasks', type: :system do
   before { driven_by :rack_test }
 
-  describe 'tasks/index' do
-    (0..2).each { |_n| FactoryBot.create(:task) }
-    let(:title_in_db) { Task.all.order(created_at: :desc).pluck(:title) }
+  describe 'index' do
+    before do
+      create_list(:task, 3)
+    end
 
     it 'is valid order' do
+      ordered_tasks_title = Task.all.order(created_at: :desc).pluck(:title)
       visit tasks_path
-      title_in_view = all('tbody tr td[1]').map(&:text)
-      expect(title_in_view).to eq title_in_db
+      titles_in_view = all('tbody tr td[1]').map(&:text)
+      expect(titles_in_view).to eq ordered_tasks_title
     end
+
+    it 'is valid order after click deadline asc' do
+      ordered_tasks_title_by_deadline
+    end
+
   end
 end
