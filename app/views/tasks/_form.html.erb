@@ -12,6 +12,13 @@
     </div>
     <%= render "layouts/error_messages", model: task, attribute: :title %>
   </div>
+    <div class="form-wrap">
+    <div>
+      <%= f.label :deadline %>
+      <%= f.date_field :deadline %>
+    </div>
+    <%= render "layouts/error_messages", model: task, attribute: :deadline %>
+  </div>
   <div class="form-wrap">
     <div>
       <%= f.label :description %>

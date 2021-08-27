@@ -6,6 +6,7 @@ ja:
     attributes:
       task:
         title: 'タスク名'
+        deadline: '終了期限'
         description: 'タスクの詳細'
   tasks:
     flash:
