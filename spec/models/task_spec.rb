@@ -7,14 +7,14 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'title' do
-    context 'valid' do
-      it "30 characters" do
+    context 'when valid' do
+      it '30 characters' do
         task = FactoryBot.build(:task, title: 'a' * 30)
         expect(task).to be_valid
       end
     end
 
-    context 'invalid' do
+    context 'when invalid' do
       it 'without a title' do
         task = FactoryBot.build(:task, title: nil)
         expect(task).to be_invalid
@@ -28,14 +28,14 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'description' do
-    context 'valid' do
+    context 'when valid' do
       it '600 characters' do
         task = FactoryBot.build(:task, description: 'a' * 600)
         expect(task).to be_valid
       end
     end
 
-    context 'invalid' do
+    context 'when invalid' do
       it '601 characters or more' do
         task = FactoryBot.build(:task, description: 'a' * 601)
         expect(task).to be_invalid
