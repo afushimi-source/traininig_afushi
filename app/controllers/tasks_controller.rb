@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   def index
     direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
     column = Task.column_names.include?(params[:column]) ? params[:column] : 'created_at'
-    @tasks = Task.all.order("#{column} #{direction}")
+    @tasks = Task.search(params[:term]).order("#{column} #{direction}")
   end
 
   def show
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.update(task_params)
       flash[:success] = t 'tasks.flash.edit_success'
-      redirect_to @task
+      redirect_to tasks_url
     else
       flash.now[:error] = t 'tasks.flash.edit_error'
       render :edit
@@ -49,6 +49,8 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :deadline)
+    p '--------------'
+    p params
+    params.require(:task).permit(:title, :description, :deadline, :status)
   end
 end
