@@ -22,5 +22,4 @@ ActiveRecord::Schema.define(version: 2021_08_27_080435) do
     t.datetime "updated_at", null: false
     t.date "deadline"
   end
-
 end
