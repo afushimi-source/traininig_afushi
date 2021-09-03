@@ -6,21 +6,40 @@ RSpec.describe Task, type: :model do
     expect(task).to be_valid
   end
 
-  it 'is invalid without a title' do
-    task = FactoryBot.build(:task, title: nil)
-    task.valid?
-    expect(task.errors[:title].join('')).to include('入力してください')
+  describe 'title' do
+    context 'when valid' do
+      it '30 characters' do
+        task = FactoryBot.build(:task, title: 'a' * 30)
+        expect(task).to be_valid
+      end
+    end
+
+    context 'when invalid' do
+      it 'without a title' do
+        task = FactoryBot.build(:task, title: nil)
+        expect(task).to be_invalid
+      end
+
+      it '31 characters or more' do
+        task = FactoryBot.build(:task, title: 'a' * 31)
+        expect(task).to be_invalid
+      end
+    end
   end
 
-  it 'is invalid with a title of 31 characters or more' do
-    task = FactoryBot.build(:task, title: 'a' * 31)
-    task.valid?
-    expect(task.errors[:title].join('')).to include('30文字以内で入力してください')
-  end
+  describe 'description' do
+    context 'when valid' do
+      it '600 characters' do
+        task = FactoryBot.build(:task, description: 'a' * 600)
+        expect(task).to be_valid
+      end
+    end
 
-  it 'is invalid with a description of 601 characters or more' do
-    task = FactoryBot.build(:task, description: 'a' * 601)
-    task.valid?
-    expect(task.errors[:description].join('')).to include('600文字以内で入力してください')
+    context 'when invalid' do
+      it '601 characters or more' do
+        task = FactoryBot.build(:task, description: 'a' * 601)
+        expect(task).to be_invalid
+      end
+    end
   end
 end

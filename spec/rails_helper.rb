@@ -63,25 +63,4 @@ RSpec.configure do |config|
 
   # factory_bot 有効化
   config.include FactoryBot::Syntax::Methods
-
-  # DatabaseCleanerの設定
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before do
-    DatabaseCleaner.start
-  end
-
-  config.after do
-    DatabaseCleaner.clean
-  end
-
-  config.before(:all) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:all) do
-    DatabaseCleaner.clean
-  end
 end
