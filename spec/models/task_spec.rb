@@ -44,19 +44,25 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'search title or status for a term' do
-    before do
-
-    end
+    let!(:task1) { FactoryBot.create(:task, title: 'aaa', status: '未着手') }
+    let!(:task2) { FactoryBot.create(:task, title: 'bbb', status: '着手中') }
+    let!(:task3) { FactoryBot.create(:task, title: 'ccc', status: '完了') }
 
     context 'when a match is found' do
-      it 'returns tasks that match the search term' do
+      it 'returns tasks that match the search term in title' do
+        expect(described_class.search('aaa')).to include(task1)
+        expect(described_class.search('aaa')).not_to include(task2, task3)
+      end
 
+      it 'return tasks that match the search term in status' do
+        expect(described_class.search('完了')).to include(task3)
+        expect(described_class.search('完了')).not_to include(task1, task2)
       end
     end
 
-    context 'when no matche is found' do
+    context 'when no match is found' do
       it 'return an empty collection' do
-
+        expect(described_class.search('zzz')).to be_empty
       end
     end
   end
