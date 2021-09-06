@@ -2,53 +2,53 @@
   table, td, th { border: 1px black solid }
   a.link_disabled { pointer-events: none; text-decoration: none; color: black }
   a.link_enabled { color: silver }
+  div.search { display: flex }
 </style>
 
 <h1>タスク一覧</h1>
 <p><%= link_to '新規作成', new_task_path %></p>
 
-<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.hidden_field :column, :value => params[:column] %>
-  <%= f.hidden_field :direction, :value =>  params[:direction] %>
-  <%= f.text_field :term, :value => params[:term] %>
-  <%= f.submit '検索' %>
-<% end %>
+<div class='search'>
+  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+    <%= f.hidden_field :column, :value => params[:column] %>
+    <%= f.hidden_field :direction, :value =>  params[:direction] %>
+    <%= f.text_field :term, :value => params[:term] %>
+    <%= f.submit '検索' %>
+  <% end %>
+  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+    <%= f.hidden_field :column, :value => params[:column] %>
+    <%= f.hidden_field :direction, :value =>  params[:direction] %>
+    <%= f.hidden_field :term, :value => '' %>
+    <%= f.submit 'クリア' %>
+  <% end %>
+</div>
 
 <table>
   <thead>
     <tr>
-<<<<<<< HEAD
-      <th>title</th>
-      <th>deadline<%= sort_order 'deadline', 'asc' %> <%= sort_order 'deadline', 'desc' %></th>
-      <th>status</th>
-=======
       <th><%= Task.human_attribute_name(:title) %></th>
       <th>
         <%= Task.human_attribute_name(:deadline_on) %>
         <% if !(params[:column] == 'deadline_on' && params[:direction] == 'asc') %>
-          <%= link_to '⬆︎', { column: 'deadline_on', direction: 'asc'} %>
+          <%= link_to '⬆︎', { column: 'deadline_on', direction: 'asc', term: params[:term] } %>
         <% end %>
         <% if !(params[:column] == 'deadline_on' && params[:direction] == 'desc') %>
-          <%= link_to '⬇︎', { column: 'deadline_on', direction: 'desc'} %>
+          <%= link_to '⬇︎', { column: 'deadline_on', direction: 'desc', term: params[:term]} %>
         <% end %>
       </th>
->>>>>>> step16
+      <th><%= Task.human_attribute_name(:status) %></th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.title %></td>
-<<<<<<< HEAD
-        <td><%= task.deadline %></td>
+        <td><%= task.deadline_on %></td>
         <td>
           <%= generate_status_link('未着手', task) %>
           <%= generate_status_link('着手中', task) %>
           <%= generate_status_link('完了', task) %>
         </td>
-=======
-        <td><%= task.deadline_on %></td>
->>>>>>> step16
         <td><%= link_to '詳細', task %></td>
         <td><%= link_to '編集', edit_task_path(task) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: t('tasks.data.confirm') } %></td>
