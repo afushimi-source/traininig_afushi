@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_08_27_080435) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "deadline"
+    t.date "deadline_on"
   end
 
 end
