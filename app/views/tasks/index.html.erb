@@ -17,21 +17,38 @@
 <table>
   <thead>
     <tr>
+<<<<<<< HEAD
       <th>title</th>
       <th>deadline<%= sort_order 'deadline', 'asc' %> <%= sort_order 'deadline', 'desc' %></th>
       <th>status</th>
+=======
+      <th><%= Task.human_attribute_name(:title) %></th>
+      <th>
+        <%= Task.human_attribute_name(:deadline_on) %>
+        <% if !(params[:column] == 'deadline_on' && params[:direction] == 'asc') %>
+          <%= link_to '⬆︎', { column: 'deadline_on', direction: 'asc'} %>
+        <% end %>
+        <% if !(params[:column] == 'deadline_on' && params[:direction] == 'desc') %>
+          <%= link_to '⬇︎', { column: 'deadline_on', direction: 'desc'} %>
+        <% end %>
+      </th>
+>>>>>>> step16
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.title %></td>
+<<<<<<< HEAD
         <td><%= task.deadline %></td>
         <td>
           <%= generate_status_link('未着手', task) %>
           <%= generate_status_link('着手中', task) %>
           <%= generate_status_link('完了', task) %>
         </td>
+=======
+        <td><%= task.deadline_on %></td>
+>>>>>>> step16
         <td><%= link_to '詳細', task %></td>
         <td><%= link_to '編集', edit_task_path(task) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: t('tasks.data.confirm') } %></td>

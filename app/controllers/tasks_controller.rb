@@ -1,8 +1,12 @@
 class TasksController < ApplicationController
   def index
+<<<<<<< HEAD
     direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
     column = Task.column_names.include?(params[:column]) ? params[:column] : 'created_at'
     @tasks = Task.search(params[:term]).order("#{column} #{direction}")
+=======
+    @tasks = Task.sort_column(params[:column] || 'created_at', params[:direction] || 'desc')
+>>>>>>> step16
   end
 
   def show
@@ -49,6 +53,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :deadline, :status)
+    params.require(:task).permit(:title, :description, :deadline_on)
   end
 end

@@ -6,8 +6,12 @@ ja:
     attributes:
       task:
         title: 'タスク名'
+<<<<<<< HEAD
         deadline: '終了期限'
         status: 'ステータス'
+=======
+        deadline_on: '終了期限'
+>>>>>>> step16
         description: 'タスクの詳細'
   tasks:
     flash:

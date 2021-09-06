@@ -15,17 +15,17 @@ RSpec.describe 'tasks', type: :system do
       expect(titles_in_view).to eq ordered_tasks_title
     end
 
-    context 'when valid deadline' do
+    context 'when valid deadline_on' do
       it 'order by asc' do
-        ordered_tasks_title_by_asc = Task.all.order(deadline: :asc).pluck(:title)
-        find(:xpath, '//th[contains(.,"deadline")]/a[1]').click
+        ordered_tasks_title_by_asc = Task.all.order(deadline_on: :asc).pluck(:title)
+        find(:xpath, "//th[contains(.,'#{Task.human_attribute_name(:deadline_on)}')]/a[1]").click
         titles_in_view = all('tbody tr td[1]').map(&:text)
         expect(titles_in_view).to eq ordered_tasks_title_by_asc
       end
 
       it 'order by desc' do
-        ordered_tasks_title_by_desc = Task.all.order(deadline: :desc).pluck(:title)
-        find(:xpath, '//th[contains(.,"deadline")]/a[2]').click
+        ordered_tasks_title_by_desc = Task.all.order(deadline_on: :desc).pluck(:title)
+        find(:xpath, "//th[contains(.,'#{Task.human_attribute_name(:deadline_on)}')]/a[2]").click
         titles_in_view = all('tbody tr td[1]').map(&:text)
         expect(titles_in_view).to eq ordered_tasks_title_by_desc
       end
