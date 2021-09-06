@@ -41,5 +41,21 @@ RSpec.describe 'tasks', type: :system do
       expect(status_in_view).to include(task1.status)
       expect(status_in_view).not_to include(task2.status)
     end
+
+    context 'when valid priority' do
+      it 'order by asc' do
+        ordered_tasks_title_by_asc = Task.all.order(priority: :asc).pluck(:title)
+        find(:xpath, "//th[contains(.,'#{Task.human_attribute_name(:priority)}')]/a[1]").click
+        titles_in_view = all('tbody tr td[1]').map(&:text)
+        expect(titles_in_view).to eq ordered_tasks_title_by_asc
+      end
+
+      it 'order by desc' do
+        ordered_tasks_title_by_desc = Task.all.order(priority: :desc).pluck(:title)
+        find(:xpath, "//th[contains(.,'#{Task.human_attribute_name(:priority)}')]/a[2]").click
+        titles_in_view = all('tbody tr td[1]').map(&:text)
+        expect(titles_in_view).to eq ordered_tasks_title_by_desc
+      end
+    end
   end
 end

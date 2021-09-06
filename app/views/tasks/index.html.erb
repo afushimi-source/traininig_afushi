@@ -35,6 +35,7 @@
         <% if !(params[:column] == 'priority' && params[:direction] == 'desc') %>
           <%= link_to '⬇︎', { column: 'priority', direction: 'desc', term: params[:term]} %>
         <% end %>
+      </th>
       <th>
         <%= Task.human_attribute_name(:deadline_on) %>
         <% if !(params[:column] == 'deadline_on' && params[:direction] == 'asc') %>

@@ -6,6 +6,7 @@ ja:
     attributes:
       task:
         title: 'タスク名'
+        priority: '優先順位'
         status: 'ステータス'
         deadline_on: '終了期限'
         priority: '優先順位'
