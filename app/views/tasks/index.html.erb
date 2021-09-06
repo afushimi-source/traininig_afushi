@@ -11,10 +11,10 @@
       <th><%= Task.human_attribute_name(:title) %></th>
       <th>
         <%= Task.human_attribute_name(:deadline_on) %>
-        <% unless params[:column] == 'deadline_on' && params[:direction] == 'asc' %>
+        <% if !(params[:column] == 'deadline_on' && params[:direction] == 'asc') %>
           <%= link_to '⬆︎', { column: 'deadline_on', direction: 'asc'} %>
         <% end %>
-        <% unless params[:column] == 'deadline_on' && params[:direction] == 'desc' %>
+        <% if !(params[:column] == 'deadline_on' && params[:direction] == 'desc') %>
           <%= link_to '⬇︎', { column: 'deadline_on', direction: 'desc'} %>
         <% end %>
       </th>

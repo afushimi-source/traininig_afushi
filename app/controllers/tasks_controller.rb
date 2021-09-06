@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.sort_column(params[:column] || 'created_at', params[:direction] || 'desc')
+    @tasks = Task.sort_column(params[:column] || 'created_at', params[:direction] || 'desc')
   end
 
   def show
