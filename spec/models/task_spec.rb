@@ -42,4 +42,22 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+
+  describe 'search title or status for a term' do
+    before do
+
+    end
+
+    context 'when a match is found' do
+      it 'returns tasks that match the search term' do
+
+      end
+    end
+
+    context 'when no matche is found' do
+      it 'return an empty collection' do
+
+      end
+    end
+  end
 end

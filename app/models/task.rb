@@ -4,6 +4,7 @@ class Task < ApplicationRecord
 
   def self.search(term)
     return Task.all unless term
-    return Task.where('title LIKE ? OR status LIKE ?', "#{sanitize_sql_like(term)}", "#{sanitize_sql_like(term)}")
+    sanitize_term = "%#{sanitize_sql_like(term)}%"
+    return Task.where('title LIKE ? OR status LIKE ?', sanitize_term, sanitize_term)
   end
 end

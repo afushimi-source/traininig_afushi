@@ -1,7 +1,7 @@
 module TasksHelper
   def sort_order(column, direction)
     content = direction == 'asc' ? '⬆︎' : '⬇︎'
-    link_to content, { column: column, direction: direction }
+    link_to content, { column: column, direction: direction, term: params[:term] }
   end
 
   def generate_status_link(display_text, task)

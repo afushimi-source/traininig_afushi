@@ -8,7 +8,9 @@
 <p><%= link_to '新規作成', new_task_path %></p>
 
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.text_field :term %>
+  <%= f.hidden_field :column, :value => params[:column] %>
+  <%= f.hidden_field :direction, :value =>  params[:direction] %>
+  <%= f.text_field :term, :value => params[:term] %>
   <%= f.submit '検索' %>
 <% end %>
 
