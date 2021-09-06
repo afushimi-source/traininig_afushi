@@ -9,7 +9,15 @@
   <thead>
     <tr>
       <th><%= Task.human_attribute_name(:title) %></th>
-      <th><%= Task.human_attribute_name(:deadline_on) %><%= sort_order 'deadline_on', 'asc', params %><%= sort_order 'deadline_on', 'desc', params %></th>
+      <th>
+        <%= Task.human_attribute_name(:deadline_on) %>
+        <% unless params[:column] == 'deadline_on' && params[:direction] == 'asc' %>
+          <%= link_to '⬆︎', { column: 'deadline_on', direction: 'asc'} %>
+        <% end %>
+        <% unless params[:column] == 'deadline_on' && params[:direction] == 'desc' %>
+          <%= link_to '⬇︎', { column: 'deadline_on', direction: 'desc'} %>
+        <% end %>
+      </th>
     </tr>
   </thead>
   <tbody>

@@ -4,7 +4,10 @@ RSpec.describe 'tasks', type: :system do
   before { driven_by :rack_test }
 
   describe 'index' do
-    before { create_list(:task, 3); visit tasks_path }
+    before do
+      create_list(:task, 3)
+      visit tasks_path
+    end
 
     it 'is valid default order' do
       ordered_tasks_title = Task.all.order(created_at: :desc).pluck(:title)
