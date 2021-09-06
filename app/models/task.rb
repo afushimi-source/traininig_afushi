@@ -2,6 +2,12 @@ class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 30 }
   validates :description, length: { maximum: 600 }
 
+  enum priority: {
+    低: 0,
+    中: 1,
+    高: 2
+  }
+
   def self.search(term)
     return Task.all unless term
     sanitize_term = "%#{sanitize_sql_like(term)}%"

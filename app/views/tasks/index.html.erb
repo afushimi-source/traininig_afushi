@@ -28,6 +28,14 @@
     <tr>
       <th><%= Task.human_attribute_name(:title) %></th>
       <th>
+        <%= Task.human_attribute_name(:priority) %>
+        <% if !(params[:column] == 'priority' && params[:direction] == 'asc') %>
+          <%= link_to '⬆︎', { column: 'priority', direction: 'asc', term: params[:term] } %>
+        <% end %>
+        <% if !(params[:column] == 'priority' && params[:direction] == 'desc') %>
+          <%= link_to '⬇︎', { column: 'priority', direction: 'desc', term: params[:term]} %>
+        <% end %>
+      <th>
         <%= Task.human_attribute_name(:deadline_on) %>
         <% if !(params[:column] == 'deadline_on' && params[:direction] == 'asc') %>
           <%= link_to '⬆︎', { column: 'deadline_on', direction: 'asc', term: params[:term] } %>
@@ -43,6 +51,7 @@
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.title %></td>
+        <td><%= task.priority %></td>
         <td><%= task.deadline_on %></td>
         <td>
           <%= generate_status_link('未着手', task) %>
