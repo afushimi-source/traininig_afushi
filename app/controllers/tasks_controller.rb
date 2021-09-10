@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.search(params[:term]).sort_column(params[:column] || 'created_at', params[:direction] || 'desc')
+    @tasks = Task.page(params[:page]).search(params[:term]).sort_column(params[:column] || 'created_at', params[:direction] || 'desc')
   end
 
   def show
