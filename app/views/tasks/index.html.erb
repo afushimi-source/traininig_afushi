@@ -12,10 +12,10 @@
       <th>
         <%= Task.human_attribute_name(:deadline_on) %>
         <% unless params[:deadline_on] == 'asc' %>
-          <%= sort_column('deadline_on', 'asc') %>
+          <%= generate_sort_param('deadline_on', 'asc') %>
         <% end %>
         <% unless params[:deadline_on] == 'desc' %>
-          <%= sort_column('deadline_on', 'desc') %>
+          <%= generate_sort_param('deadline_on', 'desc') %>
         <% end %>
       </th>
     </tr>

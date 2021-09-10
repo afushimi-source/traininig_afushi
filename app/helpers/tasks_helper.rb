@@ -1,5 +1,5 @@
 module TasksHelper
-  def sort_column(column, direction)
+  def generate_sort_param(column, direction)
     content = direction == 'asc' ? '⬆︎' : '⬇︎'
     link_to content, { "#{column}": direction }
   end
