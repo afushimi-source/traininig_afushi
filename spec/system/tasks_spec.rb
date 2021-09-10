@@ -31,15 +31,17 @@ RSpec.describe 'tasks', type: :system do
       end
     end
 
-    it 'is valid search function button' do
-      search_term = '完了'
-      task1 = FactoryBot.create(:task, status: search_term)
-      task2 = FactoryBot.create(:task, status: '着手中')
-      fill_in 'term', with: search_term
-      click_button '検索'
-      status_in_view = all('tbody tr td a.link_disabled').map(&:text)
-      expect(status_in_view).to include(task1.status)
-      expect(status_in_view).not_to include(task2.status)
+    context 'when click search button' do
+      before do
+        @task1 = FactoryBot.create(:task, status: '完了')
+        @task2 = FactoryBot.create(:task, status: '着手中')
+        fill_in 'term', with: '完了'
+        click_button '検索'
+        @status_in_view = all('tbody tr td a.link_disabled').map(&:text)
+      end
+
+      it('include valid records') { expect(@status_in_view).to include(@task1.status) }
+      it('not include invalid records') { expect(@status_in_view).not_to include(@task2.status) }
     end
   end
 end

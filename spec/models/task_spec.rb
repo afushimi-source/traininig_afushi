@@ -43,27 +43,23 @@ RSpec.describe Task, type: :model do
     end
   end
 
-  describe 'search title or status for a term' do
+  describe 'search for a term' do
     let!(:task1) { FactoryBot.create(:task, title: 'aaa', status: '未着手') }
     let!(:task2) { FactoryBot.create(:task, title: 'bbb', status: '着手中') }
     let!(:task3) { FactoryBot.create(:task, title: 'ccc', status: '完了') }
 
-    context 'when a match is found' do
-      it 'returns tasks that match the search term in title' do
-        expect(described_class.search('aaa')).to include(task1)
-        expect(described_class.search('aaa')).not_to include(task2, task3)
-      end
+    context 'when search for a title term' do
+      it('returns valid records') { expect(described_class.search('aaa')).to include(task1) }
+      it('not returns invalid records') { expect(described_class.search('aaa')).not_to include(task2, task3) }
+    end
 
-      it 'return tasks that match the search term in status' do
-        expect(described_class.search('完了')).to include(task3)
-        expect(described_class.search('完了')).not_to include(task1, task2)
-      end
+    context 'when search for a status term' do
+      it('return valid records') { expect(described_class.search('完了')).to include(task3) }
+      it('not return invalid records') { expect(described_class.search('完了')).not_to include(task1, task2) }
     end
 
     context 'when no match is found' do
-      it 'return an empty collection' do
-        expect(described_class.search('zzz')).to be_empty
-      end
+      it('return an empty collection') { expect(described_class.search('zzz')).to be_empty }
     end
   end
 end
