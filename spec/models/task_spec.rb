@@ -44,9 +44,9 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'search for a term' do
-    let!(:task1) { FactoryBot.create(:task, title: 'aaa', status: '未着手') }
-    let!(:task2) { FactoryBot.create(:task, title: 'bbb', status: '着手中') }
-    let!(:task3) { FactoryBot.create(:task, title: 'ccc', status: '完了') }
+    let(:task1) { FactoryBot.create(:task, title: 'aaa', status: '未着手') }
+    let(:task2) { FactoryBot.create(:task, title: 'bbb', status: '着手中') }
+    let(:task3) { FactoryBot.create(:task, title: 'ccc', status: '完了') }
 
     context 'when search for a title term' do
       it('returns valid records') { expect(described_class.search('aaa')).to include(task1) }
