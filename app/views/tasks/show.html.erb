@@ -1,6 +1,7 @@
 <h1>タスク詳細</h1>
-<p>title: <%= @task.title %></p>
-<p>description: <%= @task.description %></p>
+<p><%= Task.human_attribute_name(:title) %>: <%= @task.title %></p>
+<p><%= Task.human_attribute_name(:deadline_on) %>: <%= @task.deadline_on %></p>
+<p><%= Task.human_attribute_name(:description) %>: <%= @task.description %></p>
 
 <%= link_to '編集する', edit_task_path(@task) %>
 <br>

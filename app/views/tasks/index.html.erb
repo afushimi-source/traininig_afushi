@@ -8,13 +8,23 @@
 <table>
   <thead>
     <tr>
-      <th>title</th>
+      <th><%= Task.human_attribute_name(:title) %></th>
+      <th>
+        <%= Task.human_attribute_name(:deadline_on) %>
+        <% unless params[:deadline_on] == 'asc' %>
+          <%= generate_sort_param('deadline_on', 'asc') %>
+        <% end %>
+        <% unless params[:deadline_on] == 'desc' %>
+          <%= generate_sort_param('deadline_on', 'desc') %>
+        <% end %>
+      </th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.title %></td>
+        <td><%= task.deadline_on %></td>
         <td><%= link_to '詳細', task %></td>
         <td><%= link_to '編集', edit_task_path(task) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: t('tasks.data.confirm') } %></td>

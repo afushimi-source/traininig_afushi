@@ -1,6 +1,11 @@
 class TasksController < ApplicationController
+  ALLOW_SORT_COLUMNS = %w(deadline_on)
   def index
-    @tasks = Task.all.order(created_at: 'DESC')
+    if params.keys.any? { |k| ALLOW_SORT_COLUMNS.include?(k) }
+      column = params.keys.find { |k| ALLOW_SORT_COLUMNS.include?(k) }
+      direction = params[column]
+    end
+    @tasks = Task.sort_column(column || 'created_at', direction || 'desc')
   end
 
   def show
@@ -47,6 +52,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description)
+    params.require(:task).permit(:title, :description, :deadline_on)
   end
 end
