@@ -1,46 +1,44 @@
 <style>
-  .form-wrap { margin-bottom: 30px }
-  form div div { display: flex }
   .alert-error { color: red }
 </style>
 
 <%= form_with(model: task, local: true) do |f| %>
-  <div class="form-wrap">
+  <div class="form-group">
     <div>
       <%= f.label :title %>
       <%= f.text_field :title %>
     </div>
     <%= render "layouts/error_messages", model: task, attribute: :title %>
   </div>
-    <div class="form-wrap">
+    <div class="form-group">
     <div>
       <%= f.label :priority %>
       <%= f.select :priority, [['低', '低'], ['中', '中'], ['高', '高']], { include_blank: false, selected: 0 } %>
     </div>
     <%= render "layouts/error_messages", model: task, attribute: :priority %>
   </div>
-  <div class="form-wrap">
+  <div class="form-group">
     <div>
       <%= f.label :deadline_on %>
       <%= f.date_field :deadline_on %>
     </div>
     <%= render "layouts/error_messages", model: task, attribute: :deadline_on %>
   </div>
-  <div class="form-wrap">
+  <div class="form-group">
     <div>
       <%= f.label :status %>
       <%= f.select :status, [['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { include_blank: false, selected: 0 } %>
     </div>
     <%= render "layouts/error_messages", model: task, attribute: :status %>
   </div>
-  <div class="form-wrap">
+  <div class="form-group">
     <div>
       <%= f.label :description %>
       <%= f.text_area :description %>
     </div>
     <%= render "layouts/error_messages", model: task, attribute: :description %>
   </div>
-  <div class="form-wrap">
-    <%= f.submit "送信" %>
+  <div class="form-group">
+    <%= f.submit "送信", class: "btn btn-primary" %>
   </div>
 <% end %>

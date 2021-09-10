@@ -1,5 +1,4 @@
 <style>
-  table, td, th { border: 1px black solid }
   a.link_disabled { pointer-events: none; text-decoration: none; color: black }
   a.link_enabled { color: silver }
   div.search { display: flex }
@@ -23,11 +22,11 @@
   <% end %>
 </div>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th><%= Task.human_attribute_name(:title) %></th>
-      <th>
+      <th scope="col"><%= Task.human_attribute_name(:title) %></th>
+      <th scope="col">
         <%= Task.human_attribute_name(:priority) %>
         <% if !(params[:column] == 'priority' && params[:direction] == 'asc') %>
           <%= link_to '⬆︎', { column: 'priority', direction: 'asc', term: params[:term] } %>
@@ -36,7 +35,7 @@
           <%= link_to '⬇︎', { column: 'priority', direction: 'desc', term: params[:term]} %>
         <% end %>
       </th>
-      <th>
+      <th scope="col">
         <%= Task.human_attribute_name(:deadline_on) %>
         <% if !(params[:column] == 'deadline_on' && params[:direction] == 'asc') %>
           <%= link_to '⬆︎', { column: 'deadline_on', direction: 'asc', term: params[:term] } %>
@@ -45,7 +44,7 @@
           <%= link_to '⬇︎', { column: 'deadline_on', direction: 'desc', term: params[:term]} %>
         <% end %>
       </th>
-      <th><%= Task.human_attribute_name(:status) %></th>
+      <th scope="col"><%= Task.human_attribute_name(:status) %></th>
     </tr>
   </thead>
   <tbody>
