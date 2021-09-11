@@ -5,7 +5,7 @@ ENV TZ=Asia/Tokyo
 RUN /bin/cp -f /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get update -qq \
-    && apt-get install -y build-essential nodejs postgresql-client git
+    && apt-get install -y build-essential nodejs postgresql-client git yarn
 
 ENV APP_HOME /var/src/app
 RUN mkdir -p $APP_HOME
