@@ -1,4 +1,5 @@
 require 'rails_helper'
+RSpec::Matchers.define_negated_matcher :exclude, :include
 
 RSpec.describe 'tasks', type: :system do
   before { driven_by :rack_test }
@@ -31,17 +32,13 @@ RSpec.describe 'tasks', type: :system do
       end
     end
 
-    context 'when click search button' do
-      before do
-        @task1 = FactoryBot.create(:task, status: '完了')
-        @task2 = FactoryBot.create(:task, status: '着手中')
-        fill_in 'term', with: '完了'
-        click_button '検索'
-        @status_in_view = all('tbody tr td a.link_disabled').map(&:text)
-      end
-
-      it('include valid records') { expect(@status_in_view).to include(@task1.status) }
-      it('not include invalid records') { expect(@status_in_view).not_to include(@task2.status) }
+    it 'is valid click search button' do
+      task1 = FactoryBot.create(:task, status: '完了')
+      task2 = FactoryBot.create(:task, status: '着手中')
+      fill_in 'term', with: '完了'
+      click_button '検索'
+      status_in_view = all('tbody tr td a.link_disabled').map(&:text)
+      expect(status_in_view).to include(task1.status).and exclude(task2.status)
     end
   end
 end
