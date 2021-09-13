@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec::Matchers.define_negated_matcher :exclude, :include
+FactoryBot.use_parent_strategy = false
 
 RSpec.describe Task, type: :model do
   it 'is valid with a title and description' do
@@ -48,8 +49,8 @@ RSpec.describe Task, type: :model do
     let(:todo_task) { FactoryBot.create(:task, title: 'aaa', status: '未着手') }
     let(:working_task) { FactoryBot.create(:task, title: 'bbb', status: '着手中') }
     let(:finished_task) { FactoryBot.create(:task, title: 'ccc', status: '完了') }
-    let(:high_priority_task) { FactoryBot.create(:task, priority: '高')}
-    let(:low_priority_task) { FactoryBot.create(:task, priority: '低')}
+    let(:high_priority_task) { FactoryBot.create(:task, priority: '高') }
+    let(:low_priority_task) { FactoryBot.create(:task, priority: '低') }
 
     it('is valid search for a title term') { expect(described_class.search('aaa', '', '')).to include(todo_task).and exclude(working_task, finished_task) }
 

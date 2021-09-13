@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
+  before_action :logged_in_user
   def index
-    @tasks = Task.page(params[:page])
-                .search(params[:title_term], params[:status_term], params[:priority_term])
-                .sort_deadline_on(params[:sort_deadline_on])
-                .sort_priority(params[:sort_priority])
+    @tasks = current_user.tasks.page(params[:page])
+                         .search(params[:title_term], params[:status_term], params[:priority_term])
+    # .sort_deadline_on(params[:sort_deadline_on])
+    # .sort_priority(params[:sort_priority])
   end
 
   def show
@@ -19,7 +20,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = t 'tasks.flash.create_success'
       redirect_to tasks_url
