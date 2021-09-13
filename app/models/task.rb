@@ -14,18 +14,19 @@ class Task < ApplicationRecord
     高: 2
   }
 
-  def self.search(title_term, status_term, priority_term)
-    return Task.all unless title_term || status_term || priority_term
-
+  scope :search, lambda { |title_term, status_term, priority_term|
     status_term = Task.statuses.keys.include?(status_term) ? Task.statuses[status_term] : nil
     priority_term = Task.priorities.keys.include?(priority_term) ? Task.priorities[priority_term] : nil
+    return unless title_term || status_term || priority_term
 
-    return Task.where('priority = ?', priority_term) unless priority_term.nil?
+    title_like(title_term).search_status(status_term).search_priority(priority_term)
+  }
 
-    return Task.where('status = ?', status_term) unless status_term.nil?
+  scope :title_like, ->(title_term) { where('title LIKE ?', "%#{title_term}%") if title_term.present? }
 
-    Task.where('title LIKE ?', "%#{title_term}%")
-  end
+  scope :search_status, ->(status_term) { where('status = ?', status_term) if status_term.present? }
+
+  scope :search_priority, ->(priority_term) { where('priority = ?', priority_term) if priority_term.present? }
 
   scope :sort_deadline_on, lambda { |sort_deadline_on|
     return if sort_deadline_on.nil?
