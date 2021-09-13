@@ -1,4 +1,5 @@
 require 'rails_helper'
+RSpec::Matchers.define_negated_matcher :exclude, :include
 
 RSpec.describe 'tasks', type: :system do
   before { driven_by :rack_test }
@@ -10,33 +11,43 @@ RSpec.describe 'tasks', type: :system do
     end
 
     it 'is valid default order' do
+      ordered_tasks_title = Task.order(created_at: :desc).pluck(:title)
       titles_in_view = all('tbody tr td[1]').map(&:text)
-      expect(titles_in_view).to eq Task.all.order(created_at: :desc).pluck(:title)
+      expect(titles_in_view).to eq ordered_tasks_title
     end
 
     context 'when valid deadline_on' do
       it 'order by asc' do
+        ordered_tasks_title_by_asc = Task.order(deadline_on: :asc).pluck(:title)
         find(:xpath, "//th[contains(.,'#{Task.human_attribute_name(:deadline_on)}')]/a[1]").click
         titles_in_view = all('tbody tr td[1]').map(&:text)
-        expect(titles_in_view).to eq Task.all.order(deadline_on: :asc).pluck(:title)
+        expect(titles_in_view).to eq ordered_tasks_title_by_asc
       end
 
       it 'order by desc' do
+        ordered_tasks_title_by_desc = Task.order(deadline_on: :desc).pluck(:title)
         find(:xpath, "//th[contains(.,'#{Task.human_attribute_name(:deadline_on)}')]/a[2]").click
         titles_in_view = all('tbody tr td[1]').map(&:text)
-        expect(titles_in_view).to eq Task.all.order(deadline_on: :desc).pluck(:title)
+        expect(titles_in_view).to eq ordered_tasks_title_by_desc
       end
     end
 
-    it 'is valid search function button' do
-      search_term = '完了'
-      task1 = FactoryBot.create(:task, status: search_term)
-      task2 = FactoryBot.create(:task, status: '着手中')
-      fill_in 'term', with: search_term
-      click_button '検索'
+    it 'is valid click title search button' do
+      todo_task1 = FactoryBot.create(:task, title: 'aaaa')
+      todo_task2 = FactoryBot.create(:task, title: 'bbbb')
+      fill_in 'title_term', with: 'aaaa'
+      click_button 'タスク名で検索'
+      title_in_view = all('tbody tr td[1]').map(&:text)
+      expect(title_in_view).to include(todo_task1.title).and exclude(todo_task2.title)
+    end
+
+    it 'is valid click status search button' do
+      todo_task1 = FactoryBot.create(:task, status: '完了')
+      todo_task2 = FactoryBot.create(:task, status: '着手中')
+      find("option[value='完了']").select_option
+      click_button 'ステータスで検索'
       status_in_view = all('tbody tr td a.link_disabled').map(&:text)
-      expect(status_in_view).to include(task1.status)
-      expect(status_in_view).not_to include(task2.status)
+      expect(status_in_view).to include(todo_task1.status).and exclude(todo_task2.status)
     end
 
     context 'when valid priority' do

@@ -2,26 +2,25 @@
   table, td, th { border: 1px black solid }
   a.link_disabled { pointer-events: none; text-decoration: none; color: black }
   a.link_enabled { color: silver }
-  div.search { display: flex }
 </style>
 
 <h1>タスク一覧</h1>
 <p><%= link_to '新規作成', new_task_path %></p>
 
-<div class='search'>
-  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-    <%= f.hidden_field :column, :value => params[:column] %>
-    <%= f.hidden_field :direction, :value =>  params[:direction] %>
-    <%= f.text_field :term, :value => params[:term] %>
-    <%= f.submit '検索' %>
-  <% end %>
-  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-    <%= f.hidden_field :column, :value => params[:column] %>
-    <%= f.hidden_field :direction, :value =>  params[:direction] %>
-    <%= f.hidden_field :term, :value => '' %>
-    <%= f.submit 'クリア' %>
-  <% end %>
-</div>
+
+<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+  <%= f.hidden_field :deadline_on, :value => params[:deadline_on] %>
+  <%= f.hidden_field :status_term, :value =>  params[:status_term] %>
+  <%= f.text_field :title_term, :value => params[:title_term] %>
+  <%= f.submit 'タスク名で検索' %>
+<% end %>
+<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+  <%= f.hidden_field :deadline_on, :value => params[:deadline_on] %>
+  <%= f.hidden_field :title_term, :value =>  params[:title_term] %>
+  <%= f.select :status_term, [['---', '---'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status_term] } %>
+  <%= f.submit 'ステータスで検索' %>
+<% end %>
+<%= link_to 'リセット', tasks_path %>
 
 <table>
   <thead>
@@ -39,10 +38,10 @@
       <th>
         <%= Task.human_attribute_name(:deadline_on) %>
         <% unless params[:deadline_on] == 'asc' %>
-          <%= sort_column('deadline_on', 'asc') %>
+          <%= generate_sort_param('deadline_on', 'asc') %>
         <% end %>
         <% unless params[:deadline_on] == 'desc' %>
-          <%= sort_column('deadline_on', 'desc') %>
+          <%= generate_sort_param('deadline_on', 'desc') %>
         <% end %>
       </th>
       <th><%= Task.human_attribute_name(:status) %></th>
