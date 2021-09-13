@@ -49,10 +49,10 @@ RSpec.describe Task, type: :model do
     let(:task2) { FactoryBot.create(:task, title: 'bbb', status: '着手中') }
     let(:task3) { FactoryBot.create(:task, title: 'ccc', status: '完了') }
 
-    it ('is valid search for a title term') { expect(described_class.search('aaa','')).to include(task1).and exclude(task2, task3) }
+    it('is valid search for a title term') { expect(described_class.search('aaa', '')).to include(task1).and exclude(task2, task3) }
 
-    it ('is valid search for a status term') { expect(described_class.search('', '完了')).to include(task3).and exclude(task1, task2) }
+    it('is valid search for a status term') { expect(described_class.search('', '完了')).to include(task3).and exclude(task1, task2) }
 
-    it ('return an empty collection') { expect(described_class.search('zzz', '')).to be_empty }
+    it('return an empty collection') { expect(described_class.search('zzz', '')).to be_empty }
   end
 end

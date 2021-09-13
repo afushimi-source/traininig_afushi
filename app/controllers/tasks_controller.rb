@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  ALLOW_SORT_COLUMNS = %w[deadline_on]
+  ALLOW_SORT_COLUMNS = %w[deadline_on].freeze
   def index
     if params.keys.any? { |k| ALLOW_SORT_COLUMNS.include?(k) }
       column = params.keys.find { |k| ALLOW_SORT_COLUMNS.include?(k) }

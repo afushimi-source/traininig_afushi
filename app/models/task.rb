@@ -13,6 +13,7 @@ class Task < ApplicationRecord
 
     status_term = Task.statuses.keys.include?(status_term) ? Task.statuses[status_term] : nil
     return Task.where('title LIKE ?', title_term) if status_term.nil?
+
     Task.where('title LIKE ? AND status = ?', "%#{title_term}%", status_term)
   end
 
