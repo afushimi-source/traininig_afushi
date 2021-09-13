@@ -7,5 +7,6 @@ FactoryBot.define do
     description { 'test' }
     sequence(:created_at) { |n| now.since(n.days) }
     sequence(:updated_at) { |n| now.since(n.days) }
+    association :user
   end
 end
