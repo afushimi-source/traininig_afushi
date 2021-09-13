@@ -2,9 +2,9 @@ class TasksController < ApplicationController
   before_action :logged_in_user
   def index
     @tasks = current_user.tasks.page(params[:page])
-                         .search(params[:title_term], params[:status_term], params[:priority_term])
-    # .sort_deadline_on(params[:sort_deadline_on])
-    # .sort_priority(params[:sort_priority])
+                          .search(params[:title_term], params[:status_term], params[:priority_term])
+                          .sort_deadline_on(params[:sort_deadline_on])
+                          .sort_priority(params[:sort_priority])
   end
 
   def show
