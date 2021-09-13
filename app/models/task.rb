@@ -14,15 +14,28 @@ class Task < ApplicationRecord
     高: 2
   }
 
-  def self.search(searchs)
-    return Task.all if searchs.empty?
+  def self.search(title_term, status_term, priority_term)
+    return Task.all unless title_term || status_term || priority_term
 
-    searchs[:status] = Task.statuses.keys.include?(searchs[:status]) ? Task.statuses[searchs[:status]] : nil
-    searchs[:priority] = Task.priorities.keys.include?(searchs[:priority]) ? Task.priorities[searchs[:priority]] : nil
+    status_term = Task.statuses.keys.include?(status_term) ? Task.statuses[status_term] : nil
+    p priority_term = Task.priorities.keys.include?(priority_term) ? Task.priorities[priority_term] : nil
 
-    # return Task.where('title LIKE ?', "%#{searchs[:title]}%") if seastatus.nil?
-    Task.all
+    return Task.where('priority = ?', priority_term) unless priority_term.nil?
 
-    # Task.where('title LIKE ? AND status = ?', "%#{title}%", status)
+    return Task.where('status = ?', status_term) unless status_term.nil?
+
+    Task.where('title LIKE ?', "%#{title_term}%")
   end
+
+  scope :sort_deadline_on, lambda { |sort_deadline_on|
+    return if sort_deadline_on.nil?
+
+    sort_deadline_on == 'asc' ? order(deadline_on: :asc) : order(deadline_on: :desc)
+  }
+
+  scope :sort_priority, lambda { |sort_priority|
+    return order(created_at: :desc) if sort_priority.nil?
+
+    sort_priority == 'asc' ? order(priority: :asc) : order(priority: :desc)
+  }
 end
