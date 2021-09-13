@@ -45,13 +45,13 @@ RSpec.describe Task, type: :model do
   end
 
   describe 'search for a term' do
-    let(:todo_task1) { FactoryBot.create(:task, title: 'aaa', status: '未着手') }
-    let(:todo_task2) { FactoryBot.create(:task, title: 'bbb', status: '着手中') }
-    let(:todo_task3) { FactoryBot.create(:task, title: 'ccc', status: '完了') }
+    let(:todo_task) { FactoryBot.create(:task, title: 'aaa', status: '未着手') }
+    let(:working_task) { FactoryBot.create(:task, title: 'bbb', status: '着手中') }
+    let(:finished_task) { FactoryBot.create(:task, title: 'ccc', status: '完了') }
 
-    it('is valid search for a title term') { expect(described_class.search('aaa', '')).to include(todo_task1).and exclude(todo_task2, todo_task3) }
+    it('is valid search for a title term') { expect(described_class.search('aaa', '')).to include(todo_task).and exclude(working_task, finished_task) }
 
-    it('is valid search for a status term') { expect(described_class.search('', '完了')).to include(todo_task3).and exclude(todo_task1, todo_task2) }
+    it('is valid search for a status term') { expect(described_class.search('', '完了')).to include(finished_task).and exclude(todo_task, working_task) }
 
     it('return an empty collection') { expect(described_class.search('zzz', '')).to be_empty }
   end

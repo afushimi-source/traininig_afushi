@@ -16,4 +16,10 @@ class Task < ApplicationRecord
 
     Task.where('title LIKE ? AND status = ?', "%#{title_term}%", status_term)
   end
+
+  scope :sort_deadline_on, lambda { |sort_deadline_on|
+    return order(created_at: :desc) if sort_deadline_on.nil?
+
+    sort_deadline_on == 'asc' ? order(deadline_on: :asc) : order(deadline_on: :desc)
+  }
 end

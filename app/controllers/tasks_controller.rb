@@ -1,11 +1,6 @@
 class TasksController < ApplicationController
-  ALLOW_SORT_COLUMNS = %w[deadline_on].freeze
   def index
-    if params.keys.any? { |k| ALLOW_SORT_COLUMNS.include?(k) }
-      column = params.keys.find { |k| ALLOW_SORT_COLUMNS.include?(k) }
-      direction = params[column]
-    end
-    @tasks = Task.search(params[:title_term], params[:status_term]).order("#{column || 'created_at'} #{direction || 'desc'}")
+    @tasks = Task.search(params[:title_term], params[:status_term]).sort_deadline_on(params[:sort_deadline_on])
   end
 
   def show
