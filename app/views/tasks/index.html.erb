@@ -52,7 +52,6 @@
         <td><%= task.priority %></td>
         <td><%= task.deadline_on %></td>
         <td>
-          <%= task.status %>
           <%= generate_status_link('未着手', task) %>
           <%= generate_status_link('着手中', task) %>
           <%= generate_status_link('完了', task) %>
