@@ -1,4 +1,5 @@
 require 'rails_helper'
+RSpec::Matchers.define_negated_matcher :exclude, :include
 
 RSpec.describe Task, type: :model do
   it 'is valid with a title and description' do
@@ -48,18 +49,15 @@ RSpec.describe Task, type: :model do
     let(:task2) { FactoryBot.create(:task, title: 'bbb', status: '着手中') }
     let(:task3) { FactoryBot.create(:task, title: 'ccc', status: '完了') }
 
-    context 'when search for a title term' do
-      it('returns valid records') { expect(described_class.search('aaa', '')).to include(task1) }
-      it('not returns invalid records') { expect(described_class.search('aaa', '')).not_to include(task2, task3) }
-    end
+    it ('is valid search for a title term') { expect(described_class.search('aaa','')).to include(task1).and exclude(task2, task3) }
 
-    context 'when search for a status term' do
-      it('return valid records') { expect(described_class.search('', '完了')).to include(task3) }
-      it('not return invalid records') { expect(described_class.search('', '完了')).not_to include(task1, task2) }
-    end
+    # context 'when search for a status term' do
+    #   it('return valid records') { expect(described_class.search('', '完了')).to include(task3) }
+    #   it('not return invalid records') { expect(described_class.search('', '完了')).not_to include(task1, task2) }
+    # end
 
-    context 'when no match is found' do
-      it('return an empty collection') { expect(described_class.search('zzz', '')).to be_empty }
-    end
+    # context 'when no match is found' do
+    #   it('return an empty collection') { expect(described_class.search('zzz', '')).to be_empty }
+    # end
   end
 end

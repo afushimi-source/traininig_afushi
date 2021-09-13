@@ -10,25 +10,18 @@
 
 
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.hidden_field :column, :value => params[:column] %>
-  <%= f.hidden_field :direction, :value =>  params[:direction] %>
+  <%= f.hidden_field :deadline_on, :value => params[:deadline_on] %>
   <%= f.hidden_field :status_term, :value =>  params[:status_term] %>
   <%= f.text_field :title_term, :value => params[:title_term] %>
   <%= f.submit 'タスク名で検索' %>
 <% end %>
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.hidden_field :column, :value => params[:column] %>
-  <%= f.hidden_field :direction, :value =>  params[:direction] %>
+  <%= f.hidden_field :deadline_on, :value => params[:deadline_on] %>
   <%= f.hidden_field :title_term, :value =>  params[:title_term] %>
   <%= f.text_field :status_term, :value => params[:status_term] %>
   <%= f.submit 'ステータスで検索' %>
 <% end %>
-<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.hidden_field :column, :value => params[:column] %>
-  <%= f.hidden_field :direction, :value =>  params[:direction] %>
-  <%= f.hidden_field :term, :value => '' %>
-  <%= f.submit 'リセット' %>
-<% end %>
+<%= link_to 'リセット', tasks_path %>
 
 <table>
   <thead>

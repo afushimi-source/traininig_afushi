@@ -2,12 +2,19 @@ class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 30 }
   validates :description, length: { maximum: 600 }
 
-  def self.search(title_term, status_term)
-    return Task.all unless title_term && status_term
+  enum status: {
+    未着手: 0,
+    着手中: 1,
+    完了: 2
+  }
 
-    sanitize_term = "%#{sanitize_sql_like(title_term)}%"
-    Task.where('title LIKE ? OR status = ?', title_term, status_term)
+  def self.search(title_term, status_term)
+    return Task.all unless title_term || status_term
+
+    status_term = Task.statuses.keys.include?(status_term) ? Task.statuses[status_term] : nil
+    return Task.where('title LIKE ?', title_term) if status_term.nil?
+    Task.where('title LIKE ? AND status = ?', "%#{title_term}%", status_term)
   end
 
-  scope :sort_column, ->(column, direction) { order("#{column} #{direction}") }
+  scope :sort_column, ->(column, direction) { order(Arel.sql("#{column} #{direction}")) }
 end

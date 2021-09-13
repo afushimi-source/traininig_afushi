@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_09_03_094106) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "deadline_on"
-    t.string "status", default: "未着手", null: false
+    t.integer "status", default: 0, null: false
     t.index ["title"], name: "index_tasks_on_title"
   end
 
