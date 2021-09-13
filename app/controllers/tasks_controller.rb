@@ -1,11 +1,9 @@
 class TasksController < ApplicationController
-  ALLOW_SORT_COLUMNS = %w(deadline_on priority)
   def index
-    if params.keys.any? { |k| ALLOW_SORT_COLUMNS.include?(k) }
-      column = params.keys.find { |k| ALLOW_SORT_COLUMNS.include?(k) }
-      direction = params[column]
-    end
-    @tasks = Task.search(params[:term]).sort_column(column || 'created_at', direction || 'desc').page(params[:page])
+    @tasks = Task.page(params[:page])
+                .search(params[:title_term], params[:status_term], params[:priority_term])
+                .sort_deadline_on(params[:sort_deadline_on])
+                .sort_priority(params[:sort_priority])
   end
 
   def show
@@ -53,5 +51,9 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :description, :deadline_on, :status, :priority)
+  end
+
+  def search_params
+    params.fetch(:search, {}).permit(:title, :status, :priority)
   end
 end
