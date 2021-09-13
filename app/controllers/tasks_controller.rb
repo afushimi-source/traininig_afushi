@@ -5,7 +5,7 @@ class TasksController < ApplicationController
       column = params.keys.find { |k| ALLOW_SORT_COLUMNS.include?(k) }
       direction = params[column]
     end
-    @tasks = Task.search(params[:term]).sort_column(column || 'created_at', direction || 'desc')
+    @tasks = Task.search(params[:title_term], params[:status_term]).sort_column(column || 'created_at', direction || 'desc')
   end
 
   def show
