@@ -14,13 +14,15 @@ class Task < ApplicationRecord
     高: 2
   }
 
-  def self.search(title_term, status_term, priority_term)
-    return Task.all unless title_term || status_term || priority_term
-    status_term = Task.statuses.keys.include?(status_term) ? Task.statuses[status_term] : nil
-    priority_term = Task.priorities.keys.include?(priority_term) ? Task.priorities[priority_term] : nil
+  def self.search(searchs)
+    return Task.all if searchs.empty?
 
-    return Task.where('title LIKE ?', "%#{title_term}%") if status_term.nil?
+    searchs[:status] = Task.statuses.keys.include?(searchs[:status]) ? Task.statuses[searchs[:status]] : nil
+    searchs[:priority] = Task.priorities.keys.include?(searchs[:priority]) ? Task.priorities[searchs[:priority]] : nil
 
-    Task.where('title LIKE ? AND status = ?', "%#{title_term}%", status_term)
+    # return Task.where('title LIKE ?', "%#{searchs[:title]}%") if seastatus.nil?
+    Task.all
+
+    # Task.where('title LIKE ? AND status = ?', "%#{title}%", status)
   end
 end

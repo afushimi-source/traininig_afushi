@@ -8,16 +8,16 @@
 <p><%= link_to '新規作成', new_task_path %></p>
 
 
-<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.hidden_field :deadline_on, :value => params[:deadline_on] %>
-  <%= f.hidden_field :status_term, :value =>  params[:status_term] %>
-  <%= f.text_field :title_term, :value => params[:title_term] %>
+<%= form_with(scope: :search, url: tasks_path, method: :get, local: true) do |f| %>
+  <%= hidden_field_tag :deadline_on, params[:deadline_on] %>
+  <%= f.hidden_field :status, :value =>  params[:status] %>
+  <%= f.text_field :title, :value => params[:title] %>
   <%= f.submit 'タスク名で検索' %>
 <% end %>
-<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.hidden_field :deadline_on, :value => params[:deadline_on] %>
-  <%= f.hidden_field :title_term, :value =>  params[:title_term] %>
-  <%= f.select :status_term, [['---', '---'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status_term] } %>
+<%= form_with(scope: :search, url: tasks_path, method: :get, local: true) do |f| %>
+  <%= hidden_field_tag :deadline_on, params[:deadline_on] %>
+  <%= f.hidden_field :title, :value =>  params[:title] %>
+  <%= f.select :status, [['---', '---'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status] } %>
   <%= f.submit 'ステータスで検索' %>
 <% end %>
 <%= link_to 'リセット', tasks_path %>
@@ -29,10 +29,10 @@
       <th>
         <%= Task.human_attribute_name(:priority) %>
         <% unless params[:priority] == 'asc' %>
-          <%= sort_column('priority', 'asc') %>
+          <%= generate_sort_param('priority', 'asc') %>
         <% end %>
         <% unless params[:priority] == 'desc' %>
-          <%= sort_column('priority', 'desc') %>
+          <%= generate_sort_param('priority', 'desc') %>
         <% end %>
       </th>
       <th>
