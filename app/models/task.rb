@@ -18,7 +18,7 @@ class Task < ApplicationRecord
     return Task.all unless title_term || status_term || priority_term
 
     status_term = Task.statuses.keys.include?(status_term) ? Task.statuses[status_term] : nil
-    p priority_term = Task.priorities.keys.include?(priority_term) ? Task.priorities[priority_term] : nil
+    priority_term = Task.priorities.keys.include?(priority_term) ? Task.priorities[priority_term] : nil
 
     return Task.where('priority = ?', priority_term) unless priority_term.nil?
 
