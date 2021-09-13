@@ -1,26 +1,24 @@
 <style>
   a.link_disabled { pointer-events: none; text-decoration: none; color: black }
   a.link_enabled { color: silver }
-  div.search { display: flex }
 </style>
 
 <h1>タスク一覧</h1>
-<p><%= link_to '新規作成', new_task_path %></p>
+<p><%= link_to '新規作成', new_task_path, class: 'btn btn-primary' %></p>
 
-<div class='search'>
-  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-    <%= f.hidden_field :column, :value => params[:column] %>
-    <%= f.hidden_field :direction, :value =>  params[:direction] %>
-    <%= f.text_field :term, :value => params[:term] %>
-    <%= f.submit '検索' %>
-  <% end %>
-  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-    <%= f.hidden_field :column, :value => params[:column] %>
-    <%= f.hidden_field :direction, :value =>  params[:direction] %>
-    <%= f.hidden_field :term, :value => '' %>
-    <%= f.submit 'クリア' %>
-  <% end %>
-</div>
+<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+  <%= f.text_field :title_term, :value => params[:title_term] %>
+  <%= f.submit 'タスク名で検索' %>
+<% end %>
+<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+  <%= f.select :status_term, [['---', '---'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status_term] } %>
+  <%= f.submit 'ステータスで検索' %>
+<% end %>
+<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+  <%= f.select :priority_term, [['---', '---'], ['低', '低'], ['中', '中'], ['高', '高']], { selected: params[:priority_term] } %>
+  <%= f.submit '優先順位で検索' %>
+<% end %>
+<%= link_to 'リセット', tasks_path %>
 
 <table class="table table-striped">
   <thead>
@@ -28,20 +26,20 @@
       <th scope="col"><%= Task.human_attribute_name(:title) %></th>
       <th scope="col">
         <%= Task.human_attribute_name(:priority) %>
-        <% unless params[:priority] == 'asc' %>
-          <%= sort_column('priority', 'asc') %>
+        <% unless params[:sort_priority] == 'asc' %>
+          <%= generate_sort_param('priority', 'asc') %>
         <% end %>
-        <% unless params[:priority] == 'desc' %>
-          <%= sort_column('priority', 'desc') %>
+        <% unless params[:sort_priority] == 'desc' %>
+          <%= generate_sort_param('priority', 'desc') %>
         <% end %>
       </th>
       <th scope="col">
         <%= Task.human_attribute_name(:deadline_on) %>
-        <% unless params[:deadline_on] == 'asc' %>
-          <%= sort_column('deadline_on', 'asc') %>
+        <% unless params[:sort_deadline_on] == 'asc' %>
+          <%= generate_sort_param('deadline_on', 'asc') %>
         <% end %>
-        <% unless params[:deadline_on] == 'desc' %>
-          <%= sort_column('deadline_on', 'desc') %>
+        <% unless params[:sort_deadline_on] == 'desc' %>
+          <%= generate_sort_param('deadline_on', 'desc') %>
         <% end %>
       </th>
       <th scope="col"><%= Task.human_attribute_name(:status) %></th>
@@ -54,6 +52,7 @@
         <td><%= task.priority %></td>
         <td><%= task.deadline_on %></td>
         <td>
+          <%= task.status %>
           <%= generate_status_link('未着手', task) %>
           <%= generate_status_link('着手中', task) %>
           <%= generate_status_link('完了', task) %>
