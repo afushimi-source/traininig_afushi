@@ -41,5 +41,13 @@ RSpec.describe 'tasks', type: :system do
       expect(status_in_view).to include(task1.title).and exclude(task2.title)
     end
 
+    it 'is valid click status search button' do
+      task1 = FactoryBot.create(:task, status: '完了')
+      task2 = FactoryBot.create(:task, status: '着手中')
+      fill_in 'status_term', with: '完了'
+      click_button 'ステータスで検索'
+      status_in_view = all('tbody tr td a.link_disabled').map(&:text)
+      expect(status_in_view).to include(task1.status).and exclude(task2.status)
+    end
   end
 end
