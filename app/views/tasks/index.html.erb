@@ -17,7 +17,7 @@
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
   <%= f.hidden_field :deadline_on, :value => params[:deadline_on] %>
   <%= f.hidden_field :title_term, :value =>  params[:title_term] %>
-  <%= f.text_field :status_term, :value => params[:status_term] %>
+  <%= f.select :status_term, [['---', -1], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status_term] } %>
   <%= f.submit 'ステータスで検索' %>
 <% end %>
 <%= link_to 'リセット', tasks_path %>

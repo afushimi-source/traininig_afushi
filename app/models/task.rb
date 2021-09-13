@@ -12,10 +12,8 @@ class Task < ApplicationRecord
     return Task.all unless title_term || status_term
 
     status_term = Task.statuses.keys.include?(status_term) ? Task.statuses[status_term] : nil
-    return Task.where('title LIKE ?', title_term) if status_term.nil?
+    return Task.where('title LIKE ?', "%#{title_term}%") if status_term.nil?
 
     Task.where('title LIKE ? AND status = ?', "%#{title_term}%", status_term)
   end
-
-  scope :sort_column, ->(column, direction) { order(Arel.sql("#{column} #{direction}")) }
 end
