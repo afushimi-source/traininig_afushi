@@ -1,11 +1,6 @@
 class TasksController < ApplicationController
-  ALLOW_SORT_COLUMNS = %w(deadline_on)
   def index
-    if params.keys.any? { |k| ALLOW_SORT_COLUMNS.include?(k) }
-      column = params.keys.find { |k| ALLOW_SORT_COLUMNS.include?(k) }
-      direction = params[column]
-    end
-    @tasks = Task.sort_column(column || 'created_at', direction || 'desc')
+    @tasks = Task.search(params[:title_term], params[:status_term]).sort_deadline_on(params[:sort_deadline_on])
   end
 
   def show
@@ -35,7 +30,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.update(task_params)
       flash[:success] = t 'tasks.flash.edit_success'
-      redirect_to @task
+      redirect_to tasks_url
     else
       flash.now[:error] = t 'tasks.flash.edit_error'
       render :edit
@@ -52,6 +47,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :deadline_on)
+    params.require(:task).permit(:title, :description, :deadline_on, :status)
   end
 end

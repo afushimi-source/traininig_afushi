@@ -1,4 +1,5 @@
 require 'rails_helper'
+RSpec::Matchers.define_negated_matcher :exclude, :include
 
 RSpec.describe 'tasks', type: :system do
   before { driven_by :rack_test }
@@ -29,6 +30,24 @@ RSpec.describe 'tasks', type: :system do
         titles_in_view = all('tbody tr td[1]').map(&:text)
         expect(titles_in_view).to eq ordered_tasks_title_by_desc
       end
+    end
+
+    it 'is valid click title search button' do
+      reading_task = FactoryBot.create(:task, title: 'read book')
+      running_task = FactoryBot.create(:task, title: 'running')
+      fill_in 'title_term', with: 'read book'
+      click_button 'タスク名で検索'
+      title_in_view = all('tbody tr td[1]').map(&:text)
+      expect(title_in_view).to include(reading_task.title).and exclude(running_task.title)
+    end
+
+    it 'is valid click status search button' do
+      complete_task = FactoryBot.create(:task, status: '完了')
+      working_task = FactoryBot.create(:task, status: '着手中')
+      find("option[value='完了']").select_option
+      click_button 'ステータスで検索'
+      status_in_view = all('tbody tr td a.link_disabled').map(&:text)
+      expect(status_in_view).to include(complete_task.status).and exclude(working_task.status)
     end
   end
 end
