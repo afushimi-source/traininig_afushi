@@ -19,7 +19,7 @@ module TasksHelper
 
   def take_params(submit_keys = '')
     tmp = {}
-    ALLOW_TERM_PARAMS_KEYS.each { |key| tmp[key] = params[key].chomp('!') if params.keys.include?(key) && submit_keys != key }
+    ALLOW_TERM_PARAMS_KEYS.each { |key| tmp[key] = params[key] if params.keys.include?(key) && submit_keys != key }
     tmp
   end
 end
