@@ -1,7 +1,6 @@
 class TasksController < ApplicationController
-
   def index
-    @tasks = Task.search(params[:title_term], params[:status_term], params[:priority_term]).sort_column(params[:first_sort], params[:sort_deadline_on], params[:sort_priority])
+    @tasks = Task.search(params).sort_column(params)
   end
 
   def show
