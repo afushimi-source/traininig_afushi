@@ -8,6 +8,7 @@ ja:
         title: 'タスク名'
         status: 'ステータス'
         deadline_on: '終了期限'
+        priority: '優先順位'
         description: 'タスクの詳細'
   tasks:
     flash:

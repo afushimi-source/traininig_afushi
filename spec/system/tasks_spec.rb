@@ -32,6 +32,22 @@ RSpec.describe 'tasks', type: :system do
       end
     end
 
+    context 'when valid priority' do
+      it 'order by asc' do
+        ordered_tasks_title_by_asc = Task.all.order(priority: :asc).pluck(:title)
+        find(:xpath, "//th[contains(.,'#{Task.human_attribute_name(:priority)}')]/a[1]").click
+        titles_in_view = all('tbody tr td[1]').map(&:text)
+        expect(titles_in_view).to eq ordered_tasks_title_by_asc
+      end
+
+      it 'order by desc' do
+        ordered_tasks_title_by_desc = Task.all.order(priority: :desc).pluck(:title)
+        find(:xpath, "//th[contains(.,'#{Task.human_attribute_name(:priority)}')]/a[2]").click
+        titles_in_view = all('tbody tr td[1]').map(&:text)
+        expect(titles_in_view).to eq ordered_tasks_title_by_desc
+      end
+    end
+
     it 'is valid click title search button' do
       reading_task = FactoryBot.create(:task, title: 'read book')
       running_task = FactoryBot.create(:task, title: 'running')
@@ -48,6 +64,15 @@ RSpec.describe 'tasks', type: :system do
       click_button 'ステータスで検索'
       status_in_view = all('tbody tr td a.link_disabled').map(&:text)
       expect(status_in_view).to include(complete_task.status).and exclude(working_task.status)
+    end
+
+    it 'is valid click priority search button' do
+      high_priority_task = FactoryBot.create(:task, priority: '高')
+      low_priotiry_task = FactoryBot.create(:task, priority: '低')
+      find("option[value='高']").select_option
+      click_button '優先順位で検索'
+      status_in_view = all('tbody tr td[2]').map(&:text)
+      expect(status_in_view).to include(high_priority_task.priority).and exclude(low_priotiry_task.priority)
     end
   end
 end

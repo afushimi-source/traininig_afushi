@@ -14,6 +14,13 @@
   </div>
     <div class="form-wrap">
     <div>
+      <%= f.label :priority %>
+      <%= f.select :priority, [['低', '低'], ['中', '中'], ['高', '高']], { include_blank: false, selected: 0 } %>
+    </div>
+    <%= render "layouts/error_messages", model: task, attribute: :priority %>
+  </div>
+  <div class="form-wrap">
+    <div>
       <%= f.label :deadline_on %>
       <%= f.date_field :deadline_on %>
     </div>

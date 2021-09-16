@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.search(params[:title_term], params[:status_term]).sort_deadline_on(params[:sort_deadline_on])
+    @tasks = Task.search(params).sort_column(params)
   end
 
   def show
@@ -47,6 +47,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :deadline_on, :status)
+    params.require(:task).permit(:title, :description, :deadline_on, :status, :priority)
   end
 end
