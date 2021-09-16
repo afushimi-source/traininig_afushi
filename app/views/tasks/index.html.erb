@@ -9,14 +9,17 @@
 
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
   <%= f.text_field :title_term, :value => params[:title_term] %>
+  <%= take_params_hidden_field_tags('title_term') %>
   <%= f.submit 'タスク名で検索' %>
 <% end %>
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
   <%= f.select :status_term, [['---', '---'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status_term] } %>
+ <%= take_params_hidden_field_tags('status_term') %>
   <%= f.submit 'ステータスで検索' %>
 <% end %>
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
   <%= f.select :priority_term, [['---', '---'], ['低', '低'], ['中', '中'], ['高', '高']], { selected: params[:priority_term] } %>
+  <%= take_params_hidden_field_tags('priority_term') %>
   <%= f.submit '優先順位で検索' %>
 <% end %>
 <%= link_to 'リセット', tasks_path %>
@@ -57,8 +60,8 @@
           <%= generate_status_link('着手中', task) %>
           <%= generate_status_link('完了', task) %>
         </td>
-        <td><%= link_to '詳細', task %></td>
-        <td><%= link_to '編集', edit_task_path(task) %></td>
+        <td><%= link_to '詳細', task_path(task.id, take_params) %></td>
+        <td><%= link_to '編集', edit_task_path(task, take_params) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: t('tasks.data.confirm') } %></td>
       </tr>
     <% end %>

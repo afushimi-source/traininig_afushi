@@ -28,6 +28,13 @@ class Task < ApplicationRecord
 
   scope :search_priority, ->(priority_term) { where('priority = ?', priority_term) if priority_term.present? }
 
+  scope :sort_column, lambda { |first_sort, sort_deadline_on, sort_priority|
+    return order(created_at: :desc) unless sort_deadline_on || sort_priority
+
+    return sort_deadline_on(sort_deadline_on).sort_priority(sort_priority) if first_sort == 'sort_deadline_on'
+    return sort_priority(sort_priority).sort_deadline_on(sort_deadline_on)
+  }
+
   scope :sort_deadline_on, lambda { |sort_deadline_on|
     return if sort_deadline_on.nil?
 
@@ -35,7 +42,7 @@ class Task < ApplicationRecord
   }
 
   scope :sort_priority, lambda { |sort_priority|
-    return order(created_at: :desc) if sort_priority.nil?
+    return if sort_priority.nil?
 
     sort_priority == 'asc' ? order(priority: :asc) : order(priority: :desc)
   }
