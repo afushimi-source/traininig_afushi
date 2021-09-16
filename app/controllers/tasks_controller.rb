@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.search(params).sort_column(params)
+    @tasks = Task.search(params).sort_column(params).page(params[:page])
   end
 
   def show
