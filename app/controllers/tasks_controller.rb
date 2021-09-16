@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :logged_in_user
+
   def index
     @tasks = current_user.tasks.search(params).sort_column(params).page(params[:page])
   end

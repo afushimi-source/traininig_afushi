@@ -2,11 +2,15 @@ require 'rails_helper'
 RSpec::Matchers.define_negated_matcher :exclude, :include
 
 RSpec.describe 'tasks', type: :system do
+  include LoginSupport
   before { driven_by :rack_test }
 
   describe 'index' do
+    let(:user) { FactoryBot.create(:user) }
+
     before do
-      create_list(:task, 3)
+      create_list(:task, 3, user_id: user.id)
+      sign_in_as user
       visit tasks_path
     end
 
@@ -49,8 +53,8 @@ RSpec.describe 'tasks', type: :system do
     end
 
     it 'is valid click title search button' do
-      reading_task = FactoryBot.create(:task, title: 'read book')
-      running_task = FactoryBot.create(:task, title: 'running')
+      reading_task = FactoryBot.create(:task, title: 'read book', user_id: user.id)
+      running_task = FactoryBot.create(:task, title: 'running', user_id: user.id)
       fill_in 'title_term', with: 'read book'
       click_button 'タスク名で検索'
       title_in_view = all('tbody tr td[1]').map(&:text)
@@ -58,8 +62,8 @@ RSpec.describe 'tasks', type: :system do
     end
 
     it 'is valid click status search button' do
-      complete_task = FactoryBot.create(:task, status: '完了')
-      working_task = FactoryBot.create(:task, status: '着手中')
+      complete_task = FactoryBot.create(:task, status: '完了', user_id: user.id)
+      working_task = FactoryBot.create(:task, status: '着手中', user_id: user.id)
       find("option[value='完了']").select_option
       click_button 'ステータスで検索'
       status_in_view = all('tbody tr td a.link_disabled').map(&:text)
@@ -67,8 +71,8 @@ RSpec.describe 'tasks', type: :system do
     end
 
     it 'is valid click priority search button' do
-      high_priority_task = FactoryBot.create(:task, priority: '高')
-      low_priotiry_task = FactoryBot.create(:task, priority: '低')
+      high_priority_task = FactoryBot.create(:task, priority: '高', user_id: user.id)
+      low_priotiry_task = FactoryBot.create(:task, priority: '低', user_id: user.id)
       find("option[value='高']").select_option
       click_button '優先順位で検索'
       status_in_view = all('tbody tr td[2]').map(&:text)
