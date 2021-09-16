@@ -4,6 +4,6 @@
 <p><%= Task.human_attribute_name(:deadline_on) %>: <%= @task.deadline_on %></p>
 <p><%= Task.human_attribute_name(:description) %>: <%= @task.description %></p>
 
-<%= link_to '編集する', edit_task_path(@task) %>
+<%= link_to '編集する', edit_task_path(@task, take_params) %>
 <br>
-<%= link_to "戻る", tasks_path %>
+<%= link_to "戻る", tasks_path(take_params) %>
