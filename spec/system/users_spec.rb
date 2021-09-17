@@ -33,4 +33,20 @@ RSpec.describe 'users', type: :system do
       expect(page).to have_content 'メールアドレスはすでに存在します'
     end
   end
+
+  describe 'other user operation' do
+
+  end
+
+  describe 'admin' do
+    context 'when not admin user' do
+      it 'is jump page to root_path after access admin_path' do
+      end
+    end
+
+    context 'when admin user' do
+      it 'is valid page after access admin_path' do
+      end
+    end
+  end
 end

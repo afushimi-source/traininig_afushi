@@ -17,6 +17,8 @@ ja:
         email: 'メールアドレス'
         password: 'パスワード'
         password_confirmation: '確認用のパスワード'
+        admin: '管理者'
+        task_count: 'タスク数'
   tasks:
     flash:
       create_success: 'タスクの登録に成功しました'
@@ -24,8 +26,6 @@ ja:
       edit_success: 'タスクの更新に成功しました'
       edit_error: 'タスクの更新に失敗しました'
       destroy_success: 'タスクの削除に成功しました'
-    data:
-      confirm: '本当によろしいですか？'
   users:
     flash:
       create_success: 'ユーザー登録に成功しました'
@@ -39,6 +39,8 @@ ja:
       create_success: 'ログインに成功しました'
       create_error: 'メールアドレス、もしくはパスワードが登録されていません。'
       destroy_success: 'ログアウトに成功しました'
+  popup:
+    confirm: '本当によろしいですか？'
   errors:
     format: "%{attribute}%{message}"
     messages:

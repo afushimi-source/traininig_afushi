@@ -1,0 +1,23 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"><%= User.human_attribute_name(:name) %></th>
+      <th scope="col"><%= User.human_attribute_name(:email) %></th>
+      <th scope="col"><%= User.human_attribute_name(:task_count) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.tasks.size %></td>
+        <td><%= link_to '詳細', user_path(user.id) %></td>
+        <td><%= link_to '編集', edit_user_path(user) %></td>
+        <td><%= link_to '削除', user, method: :delete, data: { confirm: t('popup.confirm') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @users %>

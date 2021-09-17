@@ -1,10 +1,7 @@
 module LoginSupport
   def sign_in_as(user)
-    visit root_path
-    fill_in 'session_email', with: user.email
-    fill_in 'session_password', with: user.password
-    click_button 'ログイン'
-    all('body').map(&:text)
+    allow_any_instance_of(ActionDispatch::Request)
+    .to receive(:session){ { user_id: user.id } }
   end
 end
 

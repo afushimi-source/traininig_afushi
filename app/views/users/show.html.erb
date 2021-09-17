@@ -1,1 +1,61 @@
-<%= @user.name %>, <%= @user.email %>
+<style>
+.col-sm-3, .col-sm-9 { margin-bottom: 15px; padding: 5px }
+.btn { margin-bottom: 15px}
+</style>
+
+<h1>タスク詳細</h1>
+<dl class="row">
+  <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:name) %></dt>
+  <dd class="col-sm-9"><%= @user.name %></dd>
+  <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:email) %>
+  <dd class="col-sm-9"><%= @user.email %></dd>
+</dl>
+
+<%= link_to '編集する', edit_user_path(@user), class: 'btn btn-primary' %>
+<br>
+<%= link_to "戻る", users_path, class: 'btn btn-info' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"><%= Task.human_attribute_name(:title) %></th>
+      <th scope="col">
+        <%= Task.human_attribute_name(:priority) %>
+        <% unless params[:sort_priority] == 'asc' %>
+          <%= generate_sort_param('priority', 'asc') %>
+        <% end %>
+        <% unless params[:sort_priority] == 'desc' %>
+          <%= generate_sort_param('priority', 'desc') %>
+        <% end %>
+      </th>
+      <th scope="col">
+        <%= Task.human_attribute_name(:deadline_on) %>
+        <% unless params[:sort_deadline_on] == 'asc' %>
+          <%= generate_sort_param('deadline_on', 'asc') %>
+        <% end %>
+        <% unless params[:sort_deadline_on] == 'desc' %>
+          <%= generate_sort_param('deadline_on', 'desc') %>
+        <% end %>
+      </th>
+      <th scope="col"><%= Task.human_attribute_name(:status) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.deadline_on %></td>
+        <td>
+          <%= generate_status_link('未着手', task) %>
+          <%= generate_status_link('着手中', task) %>
+          <%= generate_status_link('完了', task) %>
+        </td>
+        <td><%= link_to '詳細', task_path(task.id, take_params) %></td>
+        <td><%= link_to '編集', edit_task_path(task, take_params) %></td>
+        <td><%= link_to '削除', task, method: :delete, data: { confirm: t('popup.confirm') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @tasks %>
