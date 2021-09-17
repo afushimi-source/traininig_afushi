@@ -5,6 +5,13 @@ RSpec.describe 'tasks', type: :system do
   include LoginSupport
   before { driven_by :rack_test }
 
+  describe 'have not login user' do
+    it 'is not access tasks_path and redirect to login_path' do
+      visit tasks_path
+      expect(current_path).to eq login_path
+    end
+  end
+
   describe 'index' do
     let(:user) { FactoryBot.create(:user) }
 
@@ -77,6 +84,13 @@ RSpec.describe 'tasks', type: :system do
       click_button '優先順位で検索'
       status_in_view = all('tbody tr td[2]').map(&:text)
       expect(status_in_view).to include(high_priority_task.priority).and exclude(low_priotiry_task.priority)
+    end
+
+    it 'is not include other user\'s task' do
+      other_user = FactoryBot.create(:user)
+      other_task = FactoryBot.create(:task, user_id: other_user.id, title: 'it is other')
+      title_in_view = all('tbody tr td[1]').map(&:text)
+      expect(title_in_view).not_to include(other_task.title)
     end
   end
 end

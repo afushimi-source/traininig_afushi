@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       redirect_to tasks_url
       flash[:success] = t 'users.flash.create_success'
     else
-      flash.now[:error] = t 'users.flash.create_error'
+      flash.now[:danger] = t 'users.flash.create_error'
       render :new
     end
   end

@@ -6,9 +6,9 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:session][:password])
       log_in user
       redirect_to tasks_path
-      flash[:success] = t 'sessions.flash.creat_success'
+      flash[:success] = t 'sessions.flash.create_success'
     else
-      flash.now[:error] = t 'sessions.flash.create_error'
+      flash.now[:danger] = t 'sessions.flash.create_error'
       render 'new'
     end
   end
@@ -16,5 +16,7 @@ class SessionsController < ApplicationController
   def destroy
     log_out
     redirect_to root_url
+    flash[:success] = t 'sessions.flash.destroy_success'
+
   end
 end
