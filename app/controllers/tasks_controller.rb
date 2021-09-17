@@ -23,7 +23,7 @@ class TasksController < ApplicationController
       flash[:success] = t 'tasks.flash.create_success'
       redirect_to tasks_url
     else
-      flash.now[:error] = t 'tasks.flash.create_error'
+      flash.now[:danger] = t 'tasks.flash.create_error'
       render :new
     end
   end
@@ -34,7 +34,7 @@ class TasksController < ApplicationController
       flash[:success] = t 'tasks.flash.edit_success'
       redirect_to tasks_url
     else
-      flash.now[:error] = t 'tasks.flash.edit_error'
+      flash.now[:danger] = t 'tasks.flash.edit_error'
       render :edit
     end
   end
