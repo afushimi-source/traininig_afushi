@@ -17,6 +17,5 @@ class SessionsController < ApplicationController
     log_out
     redirect_to root_url
     flash[:success] = t 'sessions.flash.destroy_success'
-
   end
 end

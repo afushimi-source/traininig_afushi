@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
     describe 'email' do
       context 'when valid' do
         it '255 characters' do
-          user = FactoryBot.build(:user, email: 'a' * 251 + '@a.a')
+          user = FactoryBot.build(:user, email: "#{'a' * 251}@a.a")
           expect(user).to be_valid
         end
       end
@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
         end
 
         it '256 characters or more' do
-          user = FactoryBot.build(:user, email: 'a' * 252 + '@a.a')
+          user = FactoryBot.build(:user, email: "#{'a' * 252}@a.a")
           expect(user).to be_invalid
         end
 

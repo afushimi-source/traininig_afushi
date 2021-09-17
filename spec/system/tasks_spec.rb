@@ -8,7 +8,7 @@ RSpec.describe 'tasks', type: :system do
   describe 'have not login user' do
     it 'is not access tasks_path and redirect to login_path' do
       visit tasks_path
-      expect(current_path).to eq login_path
+      expect(page).to have_current_path login_path, ignore_query: true
     end
   end
 

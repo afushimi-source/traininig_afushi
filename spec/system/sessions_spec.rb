@@ -12,7 +12,7 @@ RSpec.describe 'tasks', type: :system do
 
     it('is valid flash message after login') { expect(page).to have_content 'ログインに成功しました' }
 
-    it('is valid page after login') { expect(current_path).to eq tasks_path}
+    it('is valid page after login') { expect(page).to have_current_path tasks_path, ignore_query: true }
   end
 
   describe 'logout' do
@@ -25,8 +25,6 @@ RSpec.describe 'tasks', type: :system do
 
     it('is valid flash message after logout') { expect(page).to have_content 'ログアウトに成功しました' }
 
-    it('is valid page after logout') { expect(current_path).to eq root_path }
+    it('is valid page after logout') { expect(page).to have_current_path root_path, ignore_query: true }
   end
-
-
 end
