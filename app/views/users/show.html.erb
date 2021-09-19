@@ -16,7 +16,8 @@ a.link_enabled { color: silver }
 </dl>
 
 <%= link_to "戻る", users_path, class: 'btn btn-info' %>
-<%= link_to '編集する', edit_user_path(@user), class: 'btn btn-primary' %>
+<%= link_to '編集', edit_user_path(@user), class: 'btn btn-primary' %>
+<%= link_to '削除', current_user, method: :delete, data: { confirm: t('popup.confirm') }, class: 'btn btn-danger' %>
 
 
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
