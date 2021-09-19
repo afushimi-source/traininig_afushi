@@ -1,12 +1,5 @@
 class UsersController < ApplicationController
-  def index
-    @users = User.includes(:tasks).all.page(params[:page])
-  end
-
-  def show
-    @user = User.find(params[:id])
-    @tasks = @user.tasks.search(params).sort_column(params).page(params[:page])
-  end
+  before_action :if_not_correct_user, only: %i[:edit, :update, :update, :destroy]
 
   def new
     @user = User.new
@@ -32,7 +25,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = t 'users.flash.edit_success'
-      redirect_to admin_path
+      redirect_to users_path
     else
       flash.now[:danger] = t 'users.flash.edit_error'
       render :edit
@@ -49,5 +42,15 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def if_not_correct_user
+    user = User.find(params[:id])
+    redirect root_path unless correct_user?
+  end
+
+  def correct_user?
+    user = params[:id]
+    current_user && current_user == user
   end
 end
