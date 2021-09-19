@@ -34,19 +34,19 @@ RSpec.describe 'users', type: :system do
     end
   end
 
-  describe 'other user operation' do
+  describe 'admin/index' do
+    let(:user) { FactoryBot.create(:user, name: 'test') }
 
-  end
-
-  describe 'admin' do
-    context 'when not admin user' do
-      it 'is jump page to root_path after access admin_path' do
-      end
+    before do
+      create_list(:task, 5, user_id: user.id)
+      visit users_path
     end
 
-    context 'when admin user' do
-      it 'is valid page after access admin_path' do
-      end
+    it('deleted user, user\'s task also deleted') { expect { click_link '削除' }.to change(Task, :count).by(-5) }
+
+    it 'can see user\'s task count' do
+      view_count = find(:xpath, "//tr[contains(.,'#{user.name}')]/td[3]").text.to_i
+      expect(view_count).to eq user.tasks.count
     end
   end
 end

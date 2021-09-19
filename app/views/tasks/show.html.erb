@@ -14,6 +14,6 @@
   <dt class="col-sm-3 bg-light"><%= Task.human_attribute_name(:description) %></dt>
   <dd class="col-sm-9"><%= @task.description %></dd>
 </dl>
-<%= link_to '編集する', edit_task_path(@task, task_params), class: 'btn btn-primary' %>
+<%= link_to '編集する', edit_task_path(@task, take_params), class: 'btn btn-primary' %>
 <br>
-<%= link_to "戻る", tasks_path(task_params), class: 'btn btn-info' %>
+<%= link_to "戻る", tasks_path(take_params), class: 'btn btn-info' %>

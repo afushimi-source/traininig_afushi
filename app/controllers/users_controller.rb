@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: %i[index edit update destroy]
-
   def index
     @users = User.includes(:tasks).all.page(params[:page])
   end
@@ -44,7 +42,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = t 'users.flash.destroy_success'
-    redirect_to admin_path
+    redirect_to users_path
   end
 
   private
