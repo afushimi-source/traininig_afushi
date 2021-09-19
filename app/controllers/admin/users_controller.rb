@@ -16,9 +16,9 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    if @user.update(admin_user_params)
       flash[:success] = t 'users.flash.edit_success'
-      redirect_to users_path
+      redirect_to admin_path
     else
       flash.now[:danger] = t 'users.flash.edit_error'
       render :edit
@@ -28,7 +28,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = t 'users.flash.destroy_success'
-    redirect_to users_path
+    redirect_to admin_users_path
   end
 
   private
