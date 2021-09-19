@@ -19,7 +19,6 @@ a.link_enabled { color: silver }
 <%= link_to '編集', edit_admin_user_path(@user), class: 'btn btn-primary' %>
 <%= link_to '削除', admin_user_path(@user), method: :delete, data: { confirm: t('popup.confirm') }, class: 'btn btn-danger' %>
 
-
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
   <%= f.text_field :title_term, :value => params[:title_term], class: 'col-sm-4' %>
   <%= take_params_hidden_field_tags(submit_key: 'title_term') %>
@@ -35,7 +34,7 @@ a.link_enabled { color: silver }
   <%= take_params_hidden_field_tags(submit_key: 'priority_term') %>
   <%= f.submit '優先順位で検索', class: 'col-sm-2' %>
 <% end %>
-<%= link_to 'リセット', tasks_path, class: 'btn btn-secondary' %>
+<%= link_to 'リセット', admin_user_path(@user), class: 'btn btn-secondary' %>
 <table class="table table-striped">
   <thead>
     <tr>

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action
+  before_action :if_not_correct_user, only: %i[:edit, :show, :update, :destroy]
+
   def show
     @user = User.find(params[:id])
   end
@@ -28,7 +29,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = t 'users.flash.edit_success'
-      redirect_to admin_path
+      redirect_to user_path(@user)
     else
       flash.now[:danger] = t 'users.flash.edit_error'
       render :edit
@@ -38,7 +39,6 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = t 'users.flash.destroy_success'
-    log_out
     redirect_to signup_path
   end
 
@@ -46,5 +46,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def if_not_correct_user
+    redirect root_path unless correct_user?
+  end
+
+  def correct_user?
+    user = params[:id]
+    current_user && current_user == user
   end
 end

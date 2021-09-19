@@ -39,7 +39,7 @@ RSpec.describe 'users', type: :system do
 
     before do
       create_list(:task, 5, user_id: user.id)
-      visit users_path
+      visit admin_users_path
     end
 
     it('deleted user, user\'s task also deleted') { expect { click_link '削除' }.to change(Task, :count).by(-5) }
