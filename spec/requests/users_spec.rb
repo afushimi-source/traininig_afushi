@@ -8,7 +8,6 @@ RSpec.describe 'users', type: :request do
     it 'can change user\'s name' do
       put user_path(user), params: { user: { name: 'test' } }
       expect(user.reload.name).to eq 'test'
-      p user.errors
     end
 
     it 'cantnot change user\'s admin' do
@@ -16,12 +15,24 @@ RSpec.describe 'users', type: :request do
       expect(user.reload.admin).to eq false
     end
 
-    it 'cannot modify by not correct user'
-    # 専用のエラー
+    it 'cannot update by not correct user' do
+      other_user = FactoryBot.create(:user)
+      put user_path(other_user), params: { user: { name: 'test'} }
+      expect(response).to have_http_status(403)
+    end
   end
 
   describe 'destroy' do
-    it 'cannot modify by not correct user'
-    # 専用のエラー
+    it 'deleted user, user\'s task also deleted' do
+      create_list(:task, 5, user_id: user.id)
+      delete user_path(user)
+      expect(Task.count).to eq 0
+    end
+
+    it 'cannot destroy by not correct user' do
+      other_user = FactoryBot.create(:user)
+      delete user_path(other_user)
+      expect(response).to have_http_status(403)
+    end
   end
 end

@@ -14,8 +14,6 @@ class User < ApplicationRecord
   private
 
   def if_not_admin_none
-    p '=========='
-    p self.admin
     errors.add(:admin_none, '管理者ユーザーが0人になるため操作を実行できません')
     throw(:abort)
   end

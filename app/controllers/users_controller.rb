@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :if_not_correct_user, only: %i[:edit, :show, :update, :destroy]
+  before_action :if_not_correct_user, only: %i[edit show update destroy]
 
   def show
     @user = User.find(params[:id])
@@ -54,12 +54,11 @@ class UsersController < ApplicationController
   end
 
   def if_not_correct_user
-    user = User.find(params[:id])
-    raise Unauthorized unless correct_user?
+    raise Forbidden unless correct_user?
   end
 
   def correct_user?
-    user = params[:id]
+    user = User.find(params[:id])
     current_user && current_user == user
   end
 end
