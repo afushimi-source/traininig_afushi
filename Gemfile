@@ -6,9 +6,9 @@ ruby '2.6.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # require:false > rubocopはターミナルでしか使わないためinstallする必要はない
-gem 'rails-i18n', '~> 5.1'
-gem 'kaminari'
 gem 'bcrypt'
+gem 'kaminari'
+gem 'rails-i18n', '~> 5.1'
 gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rspec'
