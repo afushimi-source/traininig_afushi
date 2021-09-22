@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Admin::Users", type: :request do
-  describe "GET /index" do
-    pending "add some examples (or delete) #{__FILE__}"
+  describe "admin/users" do
+    it 'deleted user, user\'s task also deleted'
+
+    it 'cannot change admin user none'
+
+    it ''
   end
 end

@@ -13,6 +13,8 @@ a.link_enabled { color: silver }
   <dd class="col-sm-9"><%= @user.email %></dd>
   <dt class="col-sm-3 bg-light">タスク数</dt>
   <dd class="col-sm-9"><%= @user.tasks.count %></dd>
+  <dt class="col-sm-3 bg-light">ユーザー属性</dt>
+  <dd class="col-sm-9"><%= display_admin(@user) %></dd>
 </dl>
 
 <%= link_to "戻る", admin_users_path, class: 'btn btn-info' %>

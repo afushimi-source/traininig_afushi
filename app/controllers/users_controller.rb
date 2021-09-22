@@ -30,15 +30,21 @@ class UsersController < ApplicationController
       flash[:success] = t 'users.flash.edit_success'
       redirect_to user_path(@user)
     else
+
       flash.now[:danger] = t 'users.flash.edit_error'
       render :edit
     end
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = t 'users.flash.destroy_success'
-    redirect_to signup_path
+    @user = User.find(params[:id])
+    if @user.destroy
+      flash[:success] = t 'tasks.flash.destroy_success'
+      redirect_to signup_path
+    else
+      flash[:danger] = @user.errors[:admin_none].first || t('tasks.flash.destroy_error')
+      render :edit
+    end
   end
 
   private
@@ -49,7 +55,7 @@ class UsersController < ApplicationController
 
   def if_not_correct_user
     user = User.find(params[:id])
-    redirect root_path unless correct_user?
+    raise Unauthorized unless correct_user?
   end
 
   def correct_user?

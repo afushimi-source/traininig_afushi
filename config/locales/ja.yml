@@ -33,6 +33,7 @@ ja:
       edit_success: 'ユーザー更新に成功しました'
       edit_error: 'ユーザー更新に失敗しました'
       destroy_success: 'ユーザーの削除に成功しました'
+      destroy_error: 'ユーザーの削除に失敗しました'
       not_login: 'ログインしてください'
   sessions:
     flash:

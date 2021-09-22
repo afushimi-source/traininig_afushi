@@ -11,6 +11,10 @@ module UsersHelper
       diplay_text = '管理者ユーザへ'
       admin_attribute = true
     end
-    link_to diplay_text, user_path(user.id, params: { user: { admin: admin_attribute } }), method: :put
+    link_to diplay_text, admin_user_path(user.id, params: { user: { admin: admin_attribute } }), method: :put
+  end
+
+  def display_admin(user)
+    user.admin? ? '管理者' : '一般'
   end
 end

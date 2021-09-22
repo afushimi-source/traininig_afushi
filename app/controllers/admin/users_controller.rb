@@ -16,19 +16,24 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(admin_user_params)
+    if @user.update(user_params)
       flash[:success] = t 'users.flash.edit_success'
-      redirect_to admin_path
+      redirect_to admin_users_path
     else
-      flash.now[:danger] = t 'users.flash.edit_error'
+      flash.now[:danger] = @user.errors[:admin_none].first || t('users.flash.edit_error')
       render :edit
     end
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = t 'users.flash.destroy_success'
-    redirect_to admin_users_path
+    @user = User.find(params[:id])
+    if @user.destroy
+      flash[:success] = t 'users.flash.destroy_success'
+      redirect_to admin_users_path
+    else
+      flash[:danger] = @user.errors[:admin_none].first || t('users.flash.destroy_error')
+      redirect_to admin_users_path
+    end
   end
 
   private
@@ -38,6 +43,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def if_not_admin
-    redirect_to root_path unless current_user.admin?
+    raise Unauthorized unless current_user.admin?
   end
 end
