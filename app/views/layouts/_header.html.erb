@@ -5,24 +5,28 @@ header { margin-bottom: 15px;  }
 <header class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <%= link_to 'Todo', tasks_path, class: 'navbar-brand' %></a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <% if logged_in? %>
-          <li class="nav-item">
-            <%= link_to 'Home', tasks_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Logout', logout_path, method: :delete, class: 'nav-link' %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to 'Login', login_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Sighup', signup_path, class: 'nav-link' %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+    <ul class="navbar-nav">
+      <% if logged_in? %>
+        <li class="nav-item">
+          <%= link_to 'タスク一覧', tasks_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'マイアカウント', user_path(current_user), class:'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'ユーザー管理', admin_users_path, class:'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'ログアウト', logout_path, method: :delete,class: 'nav-link' %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'ログイン', login_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'ユーザー登録', signup_path, class: 'nav-link' %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </header>
