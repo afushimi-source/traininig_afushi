@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :if_not_correct_user, only: %i[:edit, :show, :update, :destroy]
+  before_action :if_not_correct_user, only: %i[edit show update destroy]
 
   def show
     @user = User.find(params[:id])
