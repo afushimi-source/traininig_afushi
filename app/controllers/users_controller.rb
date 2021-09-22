@@ -49,11 +49,11 @@ class UsersController < ApplicationController
   end
 
   def if_not_correct_user
-    redirect root_path unless correct_user?
+    redirect_to root_path unless correct_user?
   end
 
   def correct_user?
-    user = params[:id]
+    user = User.find(params[:id])
     current_user && current_user == user
   end
 end
