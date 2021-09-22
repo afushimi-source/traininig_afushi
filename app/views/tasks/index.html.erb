@@ -1,27 +1,32 @@
 <style>
   a.link_disabled { pointer-events: none; text-decoration: none; color: black }
   a.link_enabled { color: silver }
+  .index-header { display: flex }
+  input, select, a { margin: 10px 0px }
 </style>
 
 <h1>タスク一覧</h1>
-<p><%= link_to '新規作成', new_task_path, class: 'btn btn-primary' %></p>
-
-<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.text_field :title_term, :value => params[:title_term], class: 'col-sm-4' %>
-  <%= take_params_hidden_field_tags(submit_key: 'title_term') %>
-  <%= f.submit 'タスク名で検索', class: 'col-sm-2' %>
-<% end %>
-<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.select :status_term, [['---', '---'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status_term] }, class: 'col-sm-1' %>
- <%= take_params_hidden_field_tags(submit_key: 'status_term') %>
-  <%= f.submit 'ステータスで検索', class: 'col-sm-2' %>
-<% end %>
-<%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.select :priority_term, [['---', '---'], ['低', '低'], ['中', '中'], ['高', '高']], { selected: params[:priority_term] }, class: 'col-sm-1' %>
-  <%= take_params_hidden_field_tags(submit_key: 'priority_term') %>
-  <%= f.submit '優先順位で検索', class: 'col-sm-2' %>
-<% end %>
-<%= link_to 'リセット', tasks_path, class: 'btn btn-secondary' %>
+<div class="index-header">
+  <p class="col-sm-3"><%= link_to '新規作成', new_task_path, class: 'btn btn-primary' %></p>
+  <div class="text-end col-sm-9">
+  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+    <%= f.text_field :title_term, :value => params[:title_term], class: 'col-sm-6' %>
+    <%= take_params_hidden_field_tags(submit_key: 'title_term') %>
+    <%= f.submit 'タスク名で検索', class: 'col-sm-4' %>
+  <% end %>
+  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+    <%= f.select :status_term, [['---', '---'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status_term] }, class: 'col-sm-3' %>
+  <%= take_params_hidden_field_tags(submit_key: 'status_term') %>
+    <%= f.submit 'ステータスで検索', class: 'col-sm-4' %>
+  <% end %>
+  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+    <%= f.select :priority_term, [['---', '---'], ['低', '低'], ['中', '中'], ['高', '高']], { selected: params[:priority_term] }, class: 'col-sm-3' %>
+    <%= take_params_hidden_field_tags(submit_key: 'priority_term') %>
+    <%= f.submit '優先順位で検索', class: 'ﬁcol-sm-4' %>
+  <% end %>
+  <%= link_to 'リセット', tasks_path, class: 'btn btn-secondary' %>
+  </div>
+</div>
 
 <table class="table table-striped">
   <thead>
