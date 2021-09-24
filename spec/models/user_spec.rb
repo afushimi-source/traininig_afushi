@@ -1,70 +1,99 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'is valud with a name, email, password' do
-    user = FactoryBot.build(:user)
-    expect(user).to be_valid
+  let(:user) { FactoryBot.build(:user, params) }
+  let(:params) { { name: 'taro' } }
+
+  shared_examples 'valid' do
+    it('user') { expect(user).to be_valid }
+  end
+
+  shared_examples 'invalid' do
+    it('user') { expect(user).to be_invalid }
+  end
+
+  context 'when default params' do
+    it_behaves_like 'valid'
   end
 
   describe 'name' do
-    let(:user) { FactoryBot.build(:user, name: name) }
+    context 'when 50 characters' do
+      before { params.merge!(name: 'a' * 50) }
 
-    context 'when valid' do
-      let(:name) { 'a' * 50 }
-      it('50 characters') { expect(user).to be_valid }
+      it_behaves_like 'valid'
     end
 
-    context 'when invalid' do
-      let(:name) { nil }
-      it('without a name') { expect(user).to be_invalid }
+    context 'when without name' do
+      before { params.merge!(name: nil) }
 
-      let(:name) { 'a' * 51 }
-      it('51 characters or more') { expect(user).to be_invalid }
+      it_behaves_like 'invalid'
+    end
+
+    context 'when 51 characters or more' do
+      before { params.merge!(name: 'a' * 51) }
+
+      it_behaves_like 'invalid'
     end
   end
 
   describe 'email' do
-    let(:user) { FactoryBot.build(:user, email: email) }
+    context 'when 255 characters' do
+      before { params.merge!(email: "#{'a' * 251}@a.a") }
 
-    context 'when valid' do
-      let(:email) { "#{'a' * 251}@a.a" }
-      it('255 characters') { expect(user).to be_valid }
+      it_behaves_like 'valid'
     end
 
-    context 'when invalid' do
-      let(:email) { nil }
-      it('without a email') { expect(user).to be_invalid }
+    context 'when without a email' do
+      before { params.merge!(email: nil) }
 
-      let(:email) { "#{'a' * 252}@a.a" }
-      it('256 characters or more') { expect(user).to be_invalid }
+      it_behaves_like 'invalid'
+    end
 
-      let(:email) { 'a' * 6 }
-      it('wrong format email') { expect(user).to be_invalid }
+    context 'when 256 characters or more' do
+      before { params.merge!(email: "#{'a' * 252}@a.a") }
 
-      it 'a duplicate email' do
+      it_behaves_like 'invalid'
+    end
+
+    context 'when wrong format email' do
+      before { params.merge!(email: 'a' * 6) }
+
+      it_behaves_like 'invalid'
+    end
+
+    context 'when a duplicate email' do
+      before do
         FactoryBot.create(:user, email: 'same@aaa.com')
-        user = FactoryBot.build(:user, email: 'same@aaa.com')
-        expect(user).to be_invalid
+        params.merge!(email: 'same@aaa.com')
       end
+
+      it_behaves_like 'invalid'
     end
   end
 
   describe 'password' do
-    let(:user) { FactoryBot.build(:user, password: password, password_confirmation: password_confirmation) }
-    context 'when valid' do
-      let(:password) { 'a' * 6 }
-      let(:password_confirmation) { 'a' * 6 }
-      it('6 characters') { expect(user).to be_valid }
+    context 'when 6 characters' do
+      before { params.merge!(password: 'a' * 6, password_confirmation: 'a' * 6) }
+
+      it_behaves_like 'valid'
     end
 
-    context 'when invalid' do
-      let(:password) { nil }
-      let(:password_confirmation) { nil }
-      it('without a password') { expect(user).to be_invalid }
+    context 'when without password' do
+      before { params.merge!(password: nil, password_confirmation: nil) }
 
-      let(:password) { 'a' * 5 }
-      let(:password_confirmation) { 'a' * 5 }
-      it('5 characters or less') { expect(user).to be_invalid }
+      it_behaves_like 'invalid'
+    end
+
+    context 'when 5 characters or less' do
+      before { params.merge!(password: 'a' * 5, password_confirmation: 'a' * 5) }
+
+      it_behaves_like 'invalid'
+    end
+
+    context 'when password is not same password_confirmation' do
+      before { params.merge!(password: 'a' * 5, password_confirmation: 'b' * 5) }
+
+      it_behaves_like 'invalid'
     end
   end
 end
