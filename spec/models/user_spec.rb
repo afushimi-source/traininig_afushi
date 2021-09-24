@@ -18,19 +18,19 @@ RSpec.describe User, type: :model do
 
   describe 'name' do
     context 'when 50 characters' do
-      before { params.merge!(name: 'a' * 50) }
+      let(:params) { { name: 'a' * 50 } }
 
       it_behaves_like 'valid'
     end
 
     context 'when without name' do
-      before { params.merge!(name: nil) }
+      let(:params) { { name: nil } }
 
       it_behaves_like 'invalid'
     end
 
     context 'when 51 characters or more' do
-      before { params.merge!(name: 'a' * 51) }
+      let(:params) { { name: 'a' * 51 } }
 
       it_behaves_like 'invalid'
     end
@@ -38,25 +38,25 @@ RSpec.describe User, type: :model do
 
   describe 'email' do
     context 'when 255 characters' do
-      before { params.merge!(email: "#{'a' * 251}@a.a") }
+      let(:params) { { email: "#{'a' * 251}@a.a" } }
 
       it_behaves_like 'valid'
     end
 
     context 'when without a email' do
-      before { params.merge!(email: nil) }
+      let(:params) { { email: nil } }
 
       it_behaves_like 'invalid'
     end
 
     context 'when 256 characters or more' do
-      before { params.merge!(email: "#{'a' * 252}@a.a") }
+      let(:params) { { email: "#{'a' * 252}@a.a"} }
 
       it_behaves_like 'invalid'
     end
 
     context 'when wrong format email' do
-      before { params.merge!(email: 'a' * 6) }
+      let(:params) { { email: 'a' * 6 } }
 
       it_behaves_like 'invalid'
     end
@@ -73,25 +73,25 @@ RSpec.describe User, type: :model do
 
   describe 'password' do
     context 'when 6 characters' do
-      before { params.merge!(password: 'a' * 6, password_confirmation: 'a' * 6) }
+      let(:params) { { password: 'a' * 6, password_confirmation: 'a' * 6 } }
 
       it_behaves_like 'valid'
     end
 
     context 'when without password' do
-      before { params.merge!(password: nil, password_confirmation: nil) }
+      let(:params) { { password: nil, password_confirmation: nil } }
 
       it_behaves_like 'invalid'
     end
 
     context 'when 5 characters or less' do
-      before { params.merge!(password: 'a' * 5, password_confirmation: 'a' * 5) }
+      let(:params) { { password: 'a' * 5, password_confirmation: 'a' * 5 } }
 
       it_behaves_like 'invalid'
     end
 
     context 'when password is not same password_confirmation' do
-      before { params.merge!(password: 'a' * 5, password_confirmation: 'b' * 5) }
+      let(:params) { { password: 'a' * 5, password_confirmation: 'b' * 5 } }
 
       it_behaves_like 'invalid'
     end
