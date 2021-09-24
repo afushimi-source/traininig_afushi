@@ -21,7 +21,6 @@ class LabelsController < ApplicationController
 
   def create
     @label = Label.new(label_params)
-    @task = Task.new(task_params)
     if @label.save
       render 'tasks/new'
       flash.now[:success] = t 'labels.flash.create_success'
@@ -42,9 +41,5 @@ class LabelsController < ApplicationController
 
   def label_params
     params.require(:label).permit(:name)
-  end
-
-  def task_params
-    params.require(:task).permit(:title, :description, :deadline_on, :status, :priority, label_ids: [])
   end
 end
