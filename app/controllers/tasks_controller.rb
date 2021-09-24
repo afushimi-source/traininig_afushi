@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :logged_in_user
 
   def index
-    @tasks = current_user.tasks.search(params).sort_column(params).page(params[:page])
+    @tasks = current_user.tasks.includes(:labels).search(params).sort_column(params).page(params[:page])
   end
 
   def show
@@ -50,6 +50,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :deadline_on, :status, :priority)
+    params.require(:task).permit(:title, :description, :deadline_on, :status, :priority, label_ids: [])
   end
 end

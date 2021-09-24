@@ -4,9 +4,8 @@
 <%= form_with(model: label, local: true, class: 'label-form') do |f| %>
   <div class="form-group w-25">
     <%= f.text_field :name, class: 'form-control', placeholder: 'ラベル名' %>
-    <%= render "layouts/error_messages", model: label, attribute: :name %>
   </div>
   <div class="form-group">
-    <%= f.submit "追加", class: "btn btn-primary" %>
+    <%= f.submit class: "btn btn-secondary" %>
   </div>
 <% end %>

@@ -2,10 +2,6 @@
 
 <%= render 'form', task: @task %>
 
-<%
-=begin%>
- <%= render 'labels/form', label: @label %>
-<%
-=end%>
+<%= render 'labels/form', label: @label %>
 
 <%= link_to "戻る", tasks_path(take_params), class: 'btn btn-info' %>

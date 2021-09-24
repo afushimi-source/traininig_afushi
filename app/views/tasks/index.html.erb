@@ -3,6 +3,7 @@
   a.link_enabled { color: silver }
   .index-header { display: flex }
   input, select, a { margin: 10px 0px }
+  td > span { border: 1px solid; padding: 5px; border-radius: 5px }
 </style>
 
 <h1>タスク一覧</h1>
@@ -23,6 +24,11 @@
     <%= f.select :priority_term, [['---', '---'], ['低', '低'], ['中', '中'], ['高', '高']], { selected: params[:priority_term] }, class: 'col-sm-3' %>
     <%= take_params_hidden_field_tags(submit_key: 'priority_term') %>
     <%= f.submit '優先順位で検索', class: 'col-sm-4' %>
+  <% end %>
+  <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
+    <%= f.text_field :label_term, :value => params[:label_term], class: 'col-sm-3' %>
+    <%= take_params_hidden_field_tags(submit_key: 'label_term') %>
+    <%= f.submit 'ラベル名で検索', class: 'col-sm-4' %>
   <% end %>
   <%= link_to 'リセット', tasks_path, class: 'btn btn-secondary' %>
   </div>
@@ -51,6 +57,7 @@
         <% end %>
       </th>
       <th scope="col"><%= Task.human_attribute_name(:status) %></th>
+      <th scope="col"><%= Task.human_attribute_name(:labels) %></th>
     </tr>
   </thead>
   <tbody>
@@ -63,6 +70,11 @@
           <%= generate_status_link('未着手', task) %>
           <%= generate_status_link('着手中', task) %>
           <%= generate_status_link('完了', task) %>
+        </td>
+        <td>
+          <% task.labels.each do |label| %>
+            <span><%= label.name %></span>
+          <% end %>
         </td>
         <td><%= link_to '詳細', task_path(task.id, take_params) %></td>
         <td><%= link_to '編集', edit_task_path(task, take_params) %></td>
