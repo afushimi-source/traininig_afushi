@@ -17,7 +17,7 @@ RSpec.describe 'tasks', type: :system do
   describe 'logout' do
     before do
       visit tasks_path
-      click_link 'Logout'
+      click_link 'ログアウト'
     end
 
     it('is valid flash message after logout') { expect(page).to have_content 'ログアウトに成功しました' }
