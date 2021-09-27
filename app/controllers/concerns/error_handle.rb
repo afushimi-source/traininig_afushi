@@ -28,14 +28,14 @@ module ErrorHandle
       if exception
         logger.info "Rendering 404 with exception: #{exception.message}"
       end
-      render 'errors/404'
+      render 'errors/404', status: 404
     end
 
     def rescue500(exception)
       if exception
         logger.info "Rendering 500 with exception: #{exception.message}"
       end
-      render 'errors/500'
+      render 'errors/500', status: 500
     end
   end
 end
