@@ -21,11 +21,12 @@ class LabelsController < ApplicationController
 
   def create
     @label = Label.new(label_params)
+    @task = Task.new
     if @label.save
-      render 'tasks/new'
-      flash.now[:success] = t 'labels.flash.create_success'
+      redirect_to new_task_path
+      flash[:success] = t 'labels.flash.create_success'
     else
-      render 'task/new'
+      render :new
       flash.now[:danger] = t 'labels.flash.create_error'
     end
   end
