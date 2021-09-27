@@ -2,14 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'tasks', type: :system do
   include LoginSupport
-  before { driven_by :rack_test }
+  before do
+    driven_by :rack_test
+    user = FactoryBot.create(:user)
+    sign_in_as user
+  end
 
   describe 'login' do
-    before do
-      user = FactoryBot.create(:user)
-      sign_in_as user
-    end
-
     it('is valid flash message after login') { expect(page).to have_content 'ログインに成功しました' }
 
     it('is valid page after login') { expect(page).to have_current_path tasks_path, ignore_query: true }
@@ -17,8 +16,6 @@ RSpec.describe 'tasks', type: :system do
 
   describe 'logout' do
     before do
-      user = FactoryBot.create(:user)
-      sign_in_as user
       visit tasks_path
       click_link 'Logout'
     end
