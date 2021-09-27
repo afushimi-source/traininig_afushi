@@ -3,6 +3,7 @@
 </style>
 
 <%= form_with(model: label, local: true, class: 'label-form') do |f| %>
+  <%= hidden_field_tag :original_url, request.original_url %>
   <div class="form-group w-25">
     <%= f.text_field :name, class: 'form-control', placeholder: 'ラベル名' %>
   </div>

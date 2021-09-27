@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :tasks
-  resources :labels, only: [:index, :edit, :create, :update, :destroy]
+  resources :labels
   get '/signup', to: 'users#new'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

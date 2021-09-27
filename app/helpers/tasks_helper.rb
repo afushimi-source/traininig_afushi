@@ -22,4 +22,9 @@ module TasksHelper
     ALLOW_TERM_PARAMS_KEYS.map { |key| tmp[key] = params[key] if params.keys.include?(key) && submit_key != key }
     tmp
   end
+
+  def from_new_task_to_label
+    params[:from_new_task] = true
+    link_to 'ラベルを追加する>>', new_label_path(from_task: true)
+  end
 end
