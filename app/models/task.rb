@@ -1,9 +1,4 @@
 class Task < ApplicationRecord
-  belongs_to :user
-
-  validates :title, presence: true, length: { maximum: 30 }
-  validates :description, length: { maximum: 600 }
-
   enum status: {
     未着手: 0,
     着手中: 1,
@@ -15,6 +10,11 @@ class Task < ApplicationRecord
     中: 1,
     高: 2
   }
+
+  belongs_to :user
+
+  validates :title, presence: true, length: { maximum: 30 }
+  validates :description, length: { maximum: 600 }
 
   scope :search, Tasks::SearchTermQuery
 
