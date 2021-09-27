@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   def index
-    @users = User.includes(:tasks).all.page(params[:page])
+    @users = User.eager_load(:tasks).all.page(params[:page])
   end
 
   def show
