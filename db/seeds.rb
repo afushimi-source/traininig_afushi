@@ -1,4 +1,4 @@
-User.create!(name: 'taro', email: 'taro@example.com')
+User.create!(name: 'taro', email: 'taro@example.com', password: 'password')
 3.times do |n|
   Task.create!(
     title: "test#{n}",

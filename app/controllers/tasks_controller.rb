@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
+  before_action :logged_in_user
+
   def index
-    @tasks = Task.search(params).sort_column(params).page(params[:page])
+    @tasks = current_user.tasks.search(params).sort_column(params).page(params[:page])
   end
 
   def show
@@ -16,7 +18,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = t 'tasks.flash.create_success'
       redirect_to tasks_url

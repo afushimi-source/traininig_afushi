@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec::Matchers.define_negated_matcher :exclude, :include
+FactoryBot.use_parent_strategy = false
 
 RSpec.describe Task, type: :model do
   it 'is valid with a title and description' do
