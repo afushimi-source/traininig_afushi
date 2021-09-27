@@ -91,7 +91,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'when password is not same password_confirmation' do
-      let(:params) { { password: 'a' * 5, password_confirmation: 'b' * 5 } }
+      let(:params) { { password: 'password', password_confirmation: 'dummypassword' } }
 
       it_behaves_like 'invalid'
     end
