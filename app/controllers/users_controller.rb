@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def check_correct_user
-    redirect_to root_path unless correct_user?
+    raise Forbidden unless correct_user?
   end
 
   def correct_user?
