@@ -60,7 +60,7 @@ RSpec.describe Task, type: :model do
 
     it('return an empty collection') { expect(described_class.search(title_term: 'zzz')).to be_empty }
 
-    it('return a high priority and finished task') do
+    it 'return a high priority and finished task' do
       finished_and_high_priority_task = FactoryBot.create(:task, status: '完了', priority: '高')
       expect(described_class.search(status_term: '完了', priority_term: '高')).to include(finished_and_high_priority_task).and exclude(finished_task, high_priority_task)
     end

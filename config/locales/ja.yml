@@ -11,7 +11,6 @@ ja:
         deadline_on: '終了期限'
         priority: '優先順位'
         description: 'タスクの詳細'
-        user_id: 'ユーザーid'
       user:
         name: '名前'
         email: 'メールアドレス'

@@ -5,10 +5,7 @@ RSpec.describe 'sessions', type: :system do
   before do
     driven_by :rack_test
     user = FactoryBot.create(:user)
-    visit login_path
-    fill_in 'session_email', with: user.email
-    fill_in 'session_password', with: user.password
-    click_button 'ログイン'
+    sign_in_as user
   end
 
   describe 'login' do
@@ -19,6 +16,7 @@ RSpec.describe 'sessions', type: :system do
 
   describe 'logout' do
     before do
+      visit tasks_path
       click_link 'ログアウト'
     end
 
