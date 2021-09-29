@@ -11,7 +11,7 @@
   <p class="col-sm-3"><%= link_to '新規作成', new_task_path, class: 'btn btn-primary' %></p>
   <div class="text-end col-sm-9">
   <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-    <%= f.text_field :title_term, :value => params[:title_term], class: 'col-sm-6' %>
+    <%= f.text_field :title_term, :value => params[:title_term], class: 'col-sm-3' %>
     <%= take_params_hidden_field_tags(submit_key: 'title_term') %>
     <%= f.submit 'タスク名で検索', class: 'col-sm-4' %>
   <% end %>

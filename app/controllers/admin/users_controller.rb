@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :if_not_admin
 
   def index
-    @users = User.includes(:tasks).all.page(params[:page])
+    @users = User.eager_load(:tasks).page(params[:page])
   end
 
   def show

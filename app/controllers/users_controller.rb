@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :if_not_correct_user, only: %i[edit show update destroy]
+  before_action :check_correct_user, only: %i[edit show update destroy]
 
   def show
     @user = User.find(params[:id])
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def if_not_correct_user
+  def check_correct_user
     raise Forbidden unless correct_user?
   end
 

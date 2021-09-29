@@ -1,8 +1,8 @@
 <style>
-.col-sm-3, .col-sm-9 { margin-bottom: 15px; padding: 5px }
-.btn { margin-bottom: 15px}
-a.link_disabled { pointer-events: none; text-decoration: none; color: black }
-a.link_enabled { color: silver }
+  .col-sm-3, .col-sm-9 { margin-bottom: 15px; padding: 5px }
+  .btn { margin-bottom: 15px}
+  a.link_disabled { pointer-events: none; text-decoration: none; color: black }
+  a.link_enabled { color: silver }
 </style>
 
 <h1>ユーザー詳細</h1>
@@ -11,7 +11,7 @@ a.link_enabled { color: silver }
   <dd class="col-sm-9"><%= @user.name %></dd>
   <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:email) %></dt>
   <dd class="col-sm-9"><%= @user.email %></dd>
-  <dt class="col-sm-3 bg-light">タスク数</dt>
+  <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:task_count) %></dt>
   <dd class="col-sm-9"><%= @user.tasks.count %></dd>
   <dt class="col-sm-3 bg-light">ユーザー属性</dt>
   <dd class="col-sm-9"><%= display_admin(@user) %></dd>
