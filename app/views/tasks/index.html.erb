@@ -66,7 +66,7 @@
         </td>
         <td><%= link_to '詳細', task_path(task.id, take_params) %></td>
         <td><%= link_to '編集', edit_task_path(task, take_params) %></td>
-        <td><%= link_to '削除', task, method: :delete, data: { confirm: t('tasks.data.confirm') } %></td>
+        <td><%= link_to '削除', task, method: :delete, data: { confirm: t('popup.confirm') } %></td>
       </tr>
     <% end %>
   </tbody>

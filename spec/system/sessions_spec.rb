@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'tasks', type: :system do
+RSpec.describe 'sessions', type: :system do
   include LoginSupport
   before do
     driven_by :rack_test

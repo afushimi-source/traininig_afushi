@@ -50,7 +50,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'when 256 characters or more' do
-      let(:params) { { email: "#{'a' * 252}@a.a"} }
+      let(:params) { { email: "#{'a' * 252}@a.a" } }
 
       it_behaves_like 'invalid'
     end

@@ -1,0 +1,30 @@
+<style>
+  .alert-error { color: red }
+  .form-group { margin-bottom: 30px }
+</style>
+
+<%= form_with(model: user, local: true) do |f| %>
+  <div class="form-group">
+    <%= f.label :name, class: 'form-label' %>
+    <%= f.text_field :name, class: 'form-control' %>
+    <%= render "layouts/error_messages", model: user, attribute: :name %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email, class: 'form-label' %>
+    <%= f.email_field :email, class: 'form-control' %>
+    <%= render "layouts/error_messages", model: user, attribute: :email %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password, class: 'form-label' %>
+    <%= f.password_field :password, class: 'form-control' %>
+    <%= render "layouts/error_messages", model: user, attribute: :password %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation, class: 'form-label' %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+    <%= render "layouts/error_messages", model: user, attribute: :password_confirmation %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "送信", class: "btn btn-primary" %>
+  </div>
+<% end %>
