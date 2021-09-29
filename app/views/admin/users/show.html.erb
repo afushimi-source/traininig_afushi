@@ -11,7 +11,7 @@ a.link_enabled { color: silver }
   <dd class="col-sm-9"><%= @user.name %></dd>
   <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:email) %></dt>
   <dd class="col-sm-9"><%= @user.email %></dd>
-  <dt class="col-sm-3 bg-light">タスク数</dt>
+  <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:task_count) %></dt>
   <dd class="col-sm-9"><%= @user.tasks.count %></dd>
 </dl>
 
