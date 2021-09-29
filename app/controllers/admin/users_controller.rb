@@ -16,7 +16,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    if @user.update(admin_user_params)
       flash[:success] = t 'users.flash.edit_success'
       redirect_to admin_users_path
     else
@@ -37,7 +37,7 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def user_params
+  def admin_user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end
 
