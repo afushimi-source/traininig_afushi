@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :if_not_admin
+  before_action :check_admin
 
   def index
     @users = User.eager_load(:tasks).page(params[:page])
@@ -16,7 +16,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    if @user.update(admin_user_params)
       flash[:success] = t 'users.flash.edit_success'
       redirect_to admin_users_path
     else
@@ -29,20 +29,20 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.destroy
       flash[:success] = t 'users.flash.destroy_success'
-      redirect_to admin_users_path
     else
       flash[:danger] = @user.errors[:admin_none].first || t('users.flash.destroy_error')
-      redirect_to admin_users_path
+    redirect_to admin_users_path
     end
+
   end
 
   private
 
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
+  def admin_user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :is_admin)
   end
 
-  def if_not_admin
-    raise Unauthorized unless current_user.admin?
+  def check_admin
+    raise Unauthorized unless current_user.is_admin?
   end
 end

@@ -29,13 +29,15 @@
     <%= f.text_area :description, class: 'form-control' %>
     <%= render "layouts/error_messages", model: task, attribute: :description %>
   </div>
-  <div class="form-group">
-    <%= f.label :labels, class: 'form_label' %>
-    <%= f.collection_check_boxes :label_ids, Label.all, :id, :name, include_hidden: false do |l| %>
-      <%= l.label(class: 'checkbox-label') { l.check_box(class: 'form-check-input') + l.text } %>
-    <% end %>
-    <%= render "layouts/error_messages", model: task, attribute: :label_maps %>
-  </div>
+  <% unless Label.count.zero? %>
+    <div class="form-group">
+      <%= f.label :labels, class: 'form_label' %>
+      <%= f.collection_check_boxes :label_ids, Label.all, :id, :name, include_hidden: false do |l| %>
+        <%= l.label(class: 'checkbox-label') { l.check_box(class: 'form-check-input') + l.text } %>
+      <% end %>
+      <%= render "layouts/error_messages", model: task, attribute: :label_maps %>
+    </div>
+  <% end %>
   <div class="form-group">
     <%= f.submit "送信", class: "btn btn-primary" %>
   </div>
