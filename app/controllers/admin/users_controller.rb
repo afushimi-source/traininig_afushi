@@ -39,10 +39,10 @@ class Admin::UsersController < ApplicationController
   private
 
   def admin_user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :is_admin)
   end
 
   def check_admin
-    raise Unauthorized unless current_user.admin?
+    raise Unauthorized unless current_user.is_admin?
   end
 end

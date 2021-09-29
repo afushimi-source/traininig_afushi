@@ -20,12 +20,12 @@ class ApplicationController < ActionController::Base
   end
 
   def rescue403(exception)
-    logger.info "Rendering 403 with exception: #{exception.message}" if exception
-    render 'errors/forbidden', status: 403
+    logger.error "Rendering 403 with exception: #{exception.message}" if exception
+    render 'errors/forbidden', status: :forbidden
   end
 
   def rescue401(exception)
-    logger.info "Rendering 401 with exception: #{exception.message}" if exception
-    render 'errors/unauthorized', status: 401
+    logger.error "Rendering 401 with exception: #{exception.message}" if exception
+    render 'errors/unauthorized', status: :unauthorized
   end
 end

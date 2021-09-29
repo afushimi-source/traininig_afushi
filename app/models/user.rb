@@ -8,8 +8,8 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   before_save { email.downcase! }
-  before_update :check_admin_none, if: proc { |user| !user.admin && User.where(admin: true).count == 1 }
-  before_destroy :check_admin_none, if: proc { |user| user.admin && User.where(admin: true).count == 1 }
+  before_update :check_admin_none, if: proc { |user| !user.is_admin && User.where(is_admin: true).count == 1 }
+  before_destroy :check_admin_none, if: proc { |user| user.is_admin && User.where(is_admin: true).count == 1 }
   before_save { email.downcase! }
 
   has_secure_password

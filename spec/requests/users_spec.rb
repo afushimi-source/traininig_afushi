@@ -12,8 +12,8 @@ RSpec.describe 'users', type: :request do
     end
 
     it 'cantnot change user\'s admin' do
-      put user_path(user), params: { user: { admin: true } }
-      expect(user.reload.admin).to eq false
+      put user_path(user), params: { user: { is_admin: true } }
+      expect(user.reload.is_admin).to eq false
     end
 
     it 'cannot update by not correct user' do
