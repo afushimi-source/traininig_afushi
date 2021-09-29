@@ -16,7 +16,7 @@
     <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:task_count) %></dt>
     <dd class="col-sm-9"><%= @user.tasks.count %></dd>
     <dt class="col-sm-3 bg-light">ユーザー属性</dt>
-    <dd class="col-sm-9"><%= display_admin(@user) %></dd>
+    <dd class="col-sm-9"><%= display_is_admin(@user) %></dd>
   </dl>
 
   <%= link_to "戻る", admin_users_path, class: 'btn btn-info' %>
