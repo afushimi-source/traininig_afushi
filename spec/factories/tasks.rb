@@ -16,9 +16,9 @@ FactoryBot.define do
     trait :with_labels do
       after(:build) do |task, evaluator|
         if evaluator.label_names.nil?
-          create(:label_map, task: task, label: create(:label))
+          create(:task_label, task: task, label: create(:label))
         else
-          evaluator.label_names.each { |name| create(:label_map, task: task, label: create(:label, name: name)) }
+          evaluator.label_names.each { |name| create(:task_label, task: task, label: create(:label, name: name)) }
         end
       end
     end

@@ -35,7 +35,7 @@
       <%= f.collection_check_boxes :label_ids, Label.all, :id, :name, include_hidden: false do |l| %>
         <%= l.label(class: 'checkbox-label') { l.check_box(class: 'form-check-input') + l.text } %>
       <% end %>
-      <%= render "layouts/error_messages", model: task, attribute: :label_maps %>
+      <%= render "layouts/error_messages", model: task, attribute: :task_labels %>
     </div>
   <% end %>
   <div class="form-group">
