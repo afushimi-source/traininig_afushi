@@ -20,5 +20,4 @@ class Task < ApplicationRecord
   scope :search, Tasks::SearchTermQuery
 
   scope :sort_column, Tasks::SortColumnQuery
-
 end

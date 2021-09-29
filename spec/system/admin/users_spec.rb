@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin/users', type: :system do
   before { driven_by :rack_test }
+
   describe 'admin/users/index' do
     it 'can see user\'s task count' do
       user = FactoryBot.create(:user, name: 'test', admin: true)
@@ -16,7 +17,7 @@ RSpec.describe 'admin/users', type: :system do
       user = FactoryBot.create(:user, admin: false)
       sign_in_as(user)
       visit admin_users_path
-      expect(page).to have_http_status(401)
+      expect(page).to have_http_status(:unauthorized)
     end
   end
 end

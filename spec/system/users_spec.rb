@@ -33,6 +33,4 @@ RSpec.describe 'users', type: :system do
       expect(page).to have_content 'メールアドレスはすでに存在します'
     end
   end
-
-
 end

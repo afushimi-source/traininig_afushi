@@ -5,10 +5,9 @@ class ApplicationController < ActionController::Base
 
   class Forbidden < ActionController::ActionControllerError; end
 
-  rescue_from Forbidden, with: :rescue403
-
   class Unauthorized < ActionController::ActionControllerError; end
 
+  rescue_from Forbidden, with: :rescue403
   rescue_from Unauthorized, with: :rescue401
 
   private
@@ -20,13 +19,13 @@ class ApplicationController < ActionController::Base
     redirect_to login_url
   end
 
-  def rescue403(e)
-    @exception = e
+  def rescue403(exception)
+    logger.info "Rendering 403 with exception: #{exception.message}" if exception
     render 'errors/forbidden', status: 403
   end
 
-  def rescue401(e)
-    @exception = e
+  def rescue401(exception)
+    logger.info "Rendering 401 with exception: #{exception.message}" if exception
     render 'errors/unauthorized', status: 401
   end
 end
