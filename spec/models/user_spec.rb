@@ -1,82 +1,99 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'is valud with a name, email, password' do
-    user = FactoryBot.build(:user)
-    expect(user).to be_valid
+  let(:user) { FactoryBot.build(:user, params) }
+  let(:params) { { name: 'taro' } }
+
+  shared_examples 'valid' do
+    it('user') { expect(user).to be_valid }
+  end
+
+  shared_examples 'invalid' do
+    it('user') { expect(user).to be_invalid }
+  end
+
+  context 'when default params' do
+    it_behaves_like 'valid'
   end
 
   describe 'name' do
-    context 'when valid' do
-      it '50 characters' do
-        user = FactoryBot.build(:user, name: 'a' * 50)
-        expect(user).to be_valid
-      end
+    context 'when 50 characters' do
+      let(:params) { { name: 'a' * 50 } }
+
+      it_behaves_like 'valid'
     end
 
-    context 'when invalid' do
-      it 'without a name' do
-        user = FactoryBot.build(:user, name: nil)
-        expect(user).to be_invalid
-      end
+    context 'when without name' do
+      let(:params) { { name: nil } }
 
-      it '51 characters or more' do
-        user = FactoryBot.build(:user, name: 'a' * 51)
-        expect(user).to be_invalid
-      end
+      it_behaves_like 'invalid'
     end
 
-    describe 'email' do
-      context 'when valid' do
-        it '255 characters' do
-          user = FactoryBot.build(:user, email: "#{'a' * 251}@a.a")
-          expect(user).to be_valid
-        end
-      end
+    context 'when 51 characters or more' do
+      let(:params) { { name: 'a' * 51 } }
 
-      context 'when invalid' do
-        it 'without a email' do
-          user = FactoryBot.build(:user, email: nil)
-          expect(user).to be_invalid
-        end
+      it_behaves_like 'invalid'
+    end
+  end
 
-        it '256 characters or more' do
-          user = FactoryBot.build(:user, email: "#{'a' * 252}@a.a")
-          expect(user).to be_invalid
-        end
+  describe 'email' do
+    context 'when 255 characters' do
+      let(:params) { { email: "#{'a' * 251}@a.a" } }
 
-        it 'wrong format email' do
-          user = FactoryBot.build(:user, email: 'a' * 6)
-          expect(user).to be_invalid
-        end
-
-        it 'a duplicate email' do
-          FactoryBot.create(:user, email: 'same@aaa.com')
-          user = FactoryBot.build(:user, email: 'same@aaa.com')
-          expect(user).to be_invalid
-        end
-      end
+      it_behaves_like 'valid'
     end
 
-    describe 'password' do
-      context 'when valid' do
-        it '6 characters' do
-          user = FactoryBot.build(:user, password: 'a' * 6, password_confirmation: 'a' * 6)
-          expect(user).to be_valid
-        end
+    context 'when without a email' do
+      let(:params) { { email: nil } }
+
+      it_behaves_like 'invalid'
+    end
+
+    context 'when 256 characters or more' do
+      let(:params) { { email: "#{'a' * 252}@a.a" } }
+
+      it_behaves_like 'invalid'
+    end
+
+    context 'when wrong format email' do
+      let(:params) { { email: 'a' * 6 } }
+
+      it_behaves_like 'invalid'
+    end
+
+    context 'when a duplicate email' do
+      before do
+        FactoryBot.create(:user, email: 'same@aaa.com')
+        params.merge!(email: 'same@aaa.com')
       end
 
-      context 'when invalid' do
-        it 'without a password' do
-          user = FactoryBot.build(:user, password: nil, password_confirmation: nil)
-          expect(user).to be_invalid
-        end
+      it_behaves_like 'invalid'
+    end
+  end
 
-        it '5 characters or less' do
-          user = FactoryBot.build(:user, password: 'a' * 5, password_confirmation: 'a' * 5)
-          expect(user).to be_invalid
-        end
-      end
+  describe 'password' do
+    context 'when 6 characters' do
+      let(:params) { { password: 'a' * 6, password_confirmation: 'a' * 6 } }
+
+      it_behaves_like 'valid'
+    end
+
+    context 'when without password' do
+      let(:params) { { password: nil, password_confirmation: nil } }
+
+      it_behaves_like 'invalid'
+    end
+
+    context 'when 5 characters or less' do
+      let(:params) { { password: 'a' * 5, password_confirmation: 'a' * 5 } }
+
+      it_behaves_like 'invalid'
+    end
+
+    context 'when password is not same password_confirmation' do
+      let(:params) { { password: 'password', password_confirmation: 'dummypassword' } }
+
+      it_behaves_like 'invalid'
     end
   end
 end
