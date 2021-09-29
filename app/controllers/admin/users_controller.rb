@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :if_not_admin
+  before_action :check_admin
 
   def index
     @users = User.eager_load(:tasks).page(params[:page])
@@ -41,7 +41,7 @@ class Admin::UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end
 
-  def if_not_admin
+  def check_admin
     raise Unauthorized unless current_user.admin?
   end
 end
