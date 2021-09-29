@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'users', type: :request do
   let(:user) { FactoryBot.create(:user, name: 'taro') }
+
   before { post login_path, params: { session: { email: user.email, password: user.password } } }
 
   describe 'update' do
@@ -17,8 +18,8 @@ RSpec.describe 'users', type: :request do
 
     it 'cannot update by not correct user' do
       other_user = FactoryBot.create(:user)
-      put user_path(other_user), params: { user: { name: 'test'} }
-      expect(response).to have_http_status(403)
+      put user_path(other_user), params: { user: { name: 'test' } }
+      expect(response).to have_http_status(:forbidden)
     end
   end
 
@@ -32,7 +33,7 @@ RSpec.describe 'users', type: :request do
     it 'cannot destroy by not correct user' do
       other_user = FactoryBot.create(:user)
       delete user_path(other_user)
-      expect(response).to have_http_status(403)
+      expect(response).to have_http_status(:forbidden)
     end
   end
 end

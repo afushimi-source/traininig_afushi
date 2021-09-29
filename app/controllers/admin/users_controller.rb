@@ -29,11 +29,10 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.destroy
       flash[:success] = t 'users.flash.destroy_success'
-      redirect_to admin_users_path
     else
       flash[:danger] = @user.errors[:admin_none].first || t('users.flash.destroy_error')
-      redirect_to admin_users_path
     end
+    redirect_to admin_users_path
   end
 
   private
