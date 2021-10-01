@@ -3,36 +3,40 @@
   .btn { margin-bottom: 15px}
   a.link_disabled { pointer-events: none; text-decoration: none; color: black }
   a.link_enabled { color: silver }
+  .user-detail { margin-bottom: 60px }
 </style>
 
-<h1>ユーザー詳細</h1>
-<dl class="row">
-  <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:name) %></dt>
-  <dd class="col-sm-9"><%= @user.name %></dd>
-  <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:email) %></dt>
-  <dd class="col-sm-9"><%= @user.email %></dd>
-  <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:task_count) %></dt>
-  <dd class="col-sm-9"><%= @user.tasks.count %></dd>
-  <dt class="col-sm-3 bg-light">ユーザー属性</dt>
-  <dd class="col-sm-9"><%= display_admin(@user) %></dd>
-</dl>
+<div class="user-detail">
+  <h1>ユーザー詳細</h1>
+  <dl class="row">
+    <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:name) %></dt>
+    <dd class="col-sm-9"><%= @user.name %></dd>
+    <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:email) %></dt>
+    <dd class="col-sm-9"><%= @user.email %></dd>
+    <dt class="col-sm-3 bg-light"><%= User.human_attribute_name(:task_count) %></dt>
+    <dd class="col-sm-9"><%= @user.tasks.count %></dd>
+    <dt class="col-sm-3 bg-light">ユーザー属性</dt>
+    <dd class="col-sm-9"><%= display_is_admin(@user) %></dd>
+  </dl>
 
-<%= link_to "戻る", admin_users_path, class: 'btn btn-info' %>
-<%= link_to '編集', edit_admin_user_path(@user), class: 'btn btn-primary' %>
-<%= link_to '削除', admin_user_path(@user), method: :delete, data: { confirm: t('popup.confirm') }, class: 'btn btn-danger' %>
+  <%= link_to "戻る", :back, class: 'btn btn-info' %>
+  <%= link_to '編集', edit_admin_user_path(@user), class: 'btn btn-primary' %>
+  <%= link_to '削除', admin_user_path(@user), method: :delete, data: { confirm: t('popup.confirm') }, class: 'btn btn-danger' %>
+</div>
 
+<h4>タスク一覧</h4>
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.text_field :title_term, :value => params[:title_term], class: 'col-sm-4' %>
+  <%= f.text_field :title_term, :value => params[:title_term], class: 'col-sm-3' %>
   <%= take_params_hidden_field_tags(submit_key: 'title_term') %>
   <%= f.submit 'タスク名で検索', class: 'col-sm-2' %>
 <% end %>
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.select :status_term, [['---', '---'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status_term] }, class: 'col-sm-1' %>
+  <%= f.select :status_term, [['---', '---'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], { selected: params[:status_term] }, class: 'col-sm-3' %>
  <%= take_params_hidden_field_tags(submit_key: 'status_term') %>
   <%= f.submit 'ステータスで検索', class: 'col-sm-2' %>
 <% end %>
 <%= form_with(url: tasks_path, method: :get, local: true) do |f| %>
-  <%= f.select :priority_term, [['---', '---'], ['低', '低'], ['中', '中'], ['高', '高']], { selected: params[:priority_term] }, class: 'col-sm-1' %>
+  <%= f.select :priority_term, [['---', '---'], ['低', '低'], ['中', '中'], ['高', '高']], { selected: params[:priority_term] }, class: 'col-sm-3' %>
   <%= take_params_hidden_field_tags(submit_key: 'priority_term') %>
   <%= f.submit '優先順位で検索', class: 'col-sm-2' %>
 <% end %>

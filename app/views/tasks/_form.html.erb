@@ -29,14 +29,20 @@
     <%= f.text_area :description, class: 'form-control' %>
     <%= render "layouts/error_messages", model: task, attribute: :description %>
   </div>
+  <% unless Label.count.zero? %>
+    <div class="form-group">
+      <%= f.label :labels, class: 'form_label' %>
+      <%= f.collection_check_boxes :label_ids, Label.all, :id, :name, include_hidden: false do |l| %>
+        <%= l.label(class: 'checkbox-label') { l.check_box(class: 'form-check-input') + l.text } %>
+      <% end %>
+      <%= render "layouts/error_messages", model: task, attribute: :task_labels %>
+    </div>
+  <% end %>
   <div class="form-group">
-    <%= f.label :labels, class: 'form_label' %>
-    <%= f.collection_check_boxes :label_ids, Label.all, :id, :name, include_hidden: false do |l| %>
-      <%= l.label(class: 'checkbox-label') { l.check_box(class: 'form-check-input') + l.text } %>
+    <% if request.path_info == new_task_path %>
+      <%= f.submit 'タスクを追加する', class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit 'タスクを更新する', class: "btn btn-primary" %>
     <% end %>
-    <%= render "layouts/error_messages", model: task, attribute: :label_maps %>
-  </div>
-  <div class="form-group">
-    <%= f.submit "送信", class: "btn btn-primary" %>
   </div>
 <% end %>

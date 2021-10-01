@@ -12,7 +12,7 @@ ja:
         priority: '優先順位'
         description: 'タスクの詳細'
         labels: 'ラベル'
-        label_maps: 'ラベルとのリレーション'
+        task_labels: 'ラベルとのリレーション'
       user:
         name: '名前'
         email: 'メールアドレス'
@@ -56,7 +56,4 @@ ja:
     format: "%{attribute}%{message}"
     messages:
       blank: を入力してください
-  submit:
-    create: "作成"
-    update: "更新"
 

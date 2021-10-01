@@ -38,7 +38,8 @@ module Tasks
     def search_by_label(relation, label_term)
       return relation if label_term.blank?
 
-      relation.joins(:labels).merge(Label.where('name LIKE ?', "%#{label_term}%"))
+      # lables.name like だけだと検索されたlabelしか表示されない
+      relation.where(id: relation.joins(:labels).where('labels.name LIKE ?', "%#{label_term}%").map(&:id))
     end
   end
 end
