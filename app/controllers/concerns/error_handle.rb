@@ -21,7 +21,7 @@ module ErrorHandle
       render 'errors/unauthorized', status: :unauthorized
     end
 
-    def not_found(exception)
+    def not_found(exception: nil)
       logger.error "Rendering 404 with exception: #{exception.message}" if exception
       render 'errors/404', status: :not_found
     end
