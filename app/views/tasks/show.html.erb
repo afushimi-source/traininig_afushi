@@ -1,6 +1,7 @@
 <style>
   .col-sm-3, .col-sm-9 { margin-bottom: 15px; padding: 5px }
   .btn { margin-bottom: 15px}
+  .label-span { border: 1px solid; padding: 5px; border-radius: 5px }
 </style>
 
 <h1>タスク詳細</h1>
@@ -11,6 +12,12 @@
   <dd class="col-sm-9"><%= @task.priority %></dd>
   <dt class="col-sm-3 bg-light"><%= Task.human_attribute_name(:deadline_on) %></dt>
   <dd class="col-sm-9"><%= @task.deadline_on %></dd>
+  <dt class="col-sm-3 bg-light"><%= Task.human_attribute_name(:labels) %></dt>
+  <dd class="col-sm-9">
+    <% @task.labels.each do |label| %>
+      <span class="label-span"><%= label.name %></span>
+    <% end %>
+  </dd>
   <dt class="col-sm-3 bg-light"><%= Task.human_attribute_name(:description) %></dt>
   <dd class="col-sm-9"><%= @task.description %></dd>
 </dl>
