@@ -19,6 +19,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
+    @label = Label.new
   end
 
   def create

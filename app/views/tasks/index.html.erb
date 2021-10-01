@@ -3,7 +3,7 @@
   a.link_enabled { color: silver }
   .index-header { display: flex }
   input, select, a { margin: 10px 0px }
-  .label-span { border: 1px solid; padding: 5px; border-radius: 5px }
+  .label-span { border: 1px solid; padding: 5px; border-radius: 5px; line-height: 35px }
 </style>
 
 <h1>タスク一覧</h1>
@@ -71,7 +71,7 @@
           <%= generate_status_link('着手中', task) %>
           <%= generate_status_link('完了', task) %>
         </td>
-        <td>
+        <td class="label-td">
           <% task.labels.each do |label| %>
             <span class="label-span"><%= label.name %></span>
           <% end %>
