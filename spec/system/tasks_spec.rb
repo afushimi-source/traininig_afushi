@@ -94,11 +94,12 @@ RSpec.describe 'tasks', type: :system do
     end
 
     context 'when labels' do
-      it 'can display with task has label' do
+      before do
         FactoryBot.create(:task, :with_labels, user_id: user.id)
         visit current_path
-        expect(page).to have_css('.label-span')
       end
+
+      it('can display with task has label') { expect(page).to have_css('.label-span') }
     end
   end
 end
