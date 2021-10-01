@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   root 'sessions#new'
-  resources :users, except: :index
+  resources :users#, except: :index
   namespace :admin do
-    resources :users, except: [:create, :new]
+    resources :users#, except: [:create, :new]
   end
   get '*path', to: 'application#not_found'
 end
