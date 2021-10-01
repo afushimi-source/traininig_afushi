@@ -11,7 +11,7 @@ RSpec.describe 'users', type: :system do
       fill_in 'user_email', with: 'test@example.com'
       fill_in 'user_password', with: 'password'
       fill_in 'user_password_confirmation', with: 'password'
-      click_button '送信'
+      click_button 'ユーザーを登録する'
       expect(page).to have_content 'ユーザー登録に成功しました'
     end
 
@@ -19,7 +19,7 @@ RSpec.describe 'users', type: :system do
       fill_in 'user_email', with: 'test@example.com'
       fill_in 'user_password', with: 'password'
       fill_in 'user_password_confirmation', with: 'password'
-      click_button '送信'
+      click_button 'ユーザーを登録する'
       expect(page).to have_content '名前を入力してください'
     end
 
@@ -29,7 +29,7 @@ RSpec.describe 'users', type: :system do
       fill_in 'user_email', with: 'test@example.com'
       fill_in 'user_password', with: 'password'
       fill_in 'user_password_confirmation', with: 'password'
-      click_button '送信'
+      click_button 'ユーザーを登録する'
       expect(page).to have_content 'メールアドレスはすでに存在します'
     end
   end
