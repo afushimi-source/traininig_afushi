@@ -1,8 +1,4 @@
 module Admin::UsersHelper
-  def display_is_admin(user)
-    user.is_admin? ? '管理者' : '一般'
-  end
-
   def admin_check_box(user)
     if user.is_admin?
       diplay_text = '☑️'
