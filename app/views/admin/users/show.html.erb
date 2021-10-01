@@ -19,7 +19,7 @@
     <dd class="col-sm-9"><%= display_is_admin(@user) %></dd>
   </dl>
 
-  <%= link_to "戻る", admin_users_path, class: 'btn btn-info' %>
+  <%= link_to "戻る", :back, class: 'btn btn-info' %>
   <%= link_to '編集', edit_admin_user_path(@user), class: 'btn btn-primary' %>
   <%= link_to '削除', admin_user_path(@user), method: :delete, data: { confirm: t('popup.confirm') }, class: 'btn btn-danger' %>
 </div>

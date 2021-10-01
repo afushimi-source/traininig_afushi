@@ -25,6 +25,10 @@
     <%= render "layouts/error_messages", model: user, attribute: :password_confirmation %>
   </div>
   <div class="form-group">
-    <%= f.submit "送信", class: "btn btn-primary" %>
+    <% if request.path_info == new_user_path %>
+      <%= f.submit "ユーザーを登録する", class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit "ユーザーを更新する", class: "btn btn-primary" %>
+    <% end %>
   </div>
 <% end %>
