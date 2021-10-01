@@ -57,6 +57,6 @@ ja:
     messages:
       blank: を入力してください
   submit:
-    create: "作成"
-    update: "更新"
+    create: "%{model}作成"
+    update: "%{model}更新"
 

@@ -36,6 +36,7 @@ RSpec.describe Label, type: :model do
 
   context 'when same name is exist' do
     before { FactoryBot.create(:label, name: 'same') }
+
     let(:name) { 'same' }
 
     it_behaves_like 'invalid'

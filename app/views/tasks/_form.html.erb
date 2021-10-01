@@ -39,6 +39,10 @@
     </div>
   <% end %>
   <div class="form-group">
-    <%= f.submit "送信", class: "btn btn-primary" %>
+    <% if request.path_info == new_task_path %>
+      <%= f.submit 'タスクを追加する', class: "btn btn-primary" %>
+    <% else %>
+      <%= f.submit 'タスクを更新する', class: "btn btn-primary" %>
+    <% end %>
   </div>
 <% end %>

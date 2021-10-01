@@ -10,7 +10,7 @@ FactoryBot.define do
     association :user
 
     transient do
-      label_names  { nil }
+      label_names { nil }
     end
 
     trait :with_labels do

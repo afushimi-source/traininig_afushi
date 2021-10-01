@@ -22,11 +22,10 @@ class LabelsController < ApplicationController
   def create
     @label = Label.new(label_params)
     @task = Task.new
+    redirect_to params[:original_url]
     if @label.save
-      redirect_to params[:original_url]
       flash[:success] = t 'labels.flash.create_success'
     else
-      redirect_to params[:original_url]
       flash[:danger] = t 'labels.flash.create_error'
     end
   end
