@@ -1,11 +1,10 @@
 module ErrorHandle
   extend ActiveSupport::Concern
+  class Forbidden < ActionController::ActionControllerError; end
+
+  class Unauthorized < ActionController::ActionControllerError; end
 
   included do
-    class Forbidden < ActionController::ActionControllerError; end
-
-    class Unauthorized < ActionController::ActionControllerError; end
-
     rescue_from Exception, with: :rescue500
     rescue_from Forbidden, with: :rescue403
     rescue_from Unauthorized, with: :rescue401
