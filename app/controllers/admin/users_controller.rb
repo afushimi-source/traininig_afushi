@@ -31,8 +31,8 @@ class Admin::UsersController < ApplicationController
       flash[:success] = t 'users.flash.destroy_success'
     else
       flash[:danger] = @user.errors[:admin_none].first || t('users.flash.destroy_error')
-      redirect_to admin_users_path
     end
+    redirect_to admin_users_path
   end
 
   private
