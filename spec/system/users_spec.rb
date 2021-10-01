@@ -33,20 +33,4 @@ RSpec.describe 'users', type: :system do
       expect(page).to have_content 'メールアドレスはすでに存在します'
     end
   end
-
-  describe 'admin/index' do
-    let(:user) { FactoryBot.create(:user, name: 'test') }
-
-    before do
-      create_list(:task, 5, user_id: user.id)
-      visit admin_users_path
-    end
-
-    it('deleted user, user\'s task also deleted') { expect { click_link '削除' }.to change(Task, :count).by(-5) }
-
-    it 'can see user\'s task count' do
-      view_count = find(:xpath, "//tr[contains(.,'#{user.name}')]/td[3]").text.to_i
-      expect(view_count).to eq user.tasks.count
-    end
-  end
 end

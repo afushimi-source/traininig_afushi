@@ -13,7 +13,7 @@
         <li class="nav-item">
           <%= link_to 'マイアカウント', user_path(current_user), class:'nav-link' %>
         </li>
-        <% if current_user.admin? %>
+        <% if current_user.is_admin? %>
           <li class="nav-item">
             <%= link_to 'ユーザー管理', admin_users_path, class:'nav-link' %>
           </li>
