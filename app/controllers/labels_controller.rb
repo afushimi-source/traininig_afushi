@@ -1,7 +1,7 @@
 class LabelsController < ApplicationController
   def index
     @label = Label.new
-    @labels = Label.all.page(params[:page])
+    @labels = Label.page(params[:page])
   end
 
   def edit
