@@ -1,6 +1,10 @@
 module Tasks
   class SearchTermQuery < Query
     def initialize(relation = Task.all)
+      # pp 'aa'
+
+      # pp relation
+      # super(relation)
       @relation = relation
     end
 
