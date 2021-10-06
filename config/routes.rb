@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, except: [:create, :new]
   end
-  get '*path', to: 'application#not_found'
+  get '*path', to: 'application#rescue404'
 end

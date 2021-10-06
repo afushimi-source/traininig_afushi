@@ -8,7 +8,7 @@ module ErrorHandle
     rescue_from Exception, with: :rescue500
     rescue_from Forbidden, with: :rescue403
     rescue_from Unauthorized, with: :rescue401
-    rescue_from ActiveRecord::RecordNotFound, with: :not_found
+    rescue_from ActiveRecord::RecordNotFound, with: :rescue404
 
     def rescue500(exception = nil)
       logger.error "Rendering 500 with exception: #{exception.message}" if exception
@@ -25,7 +25,7 @@ module ErrorHandle
       render 'errors/unauthorized', status: :unauthorized
     end
 
-    def not_found(exception = nil)
+    def rescue404(exception = nil)
       logger.error "Rendering 404 with exception: #{exception.message}" if exception
       render 'errors/404', status: :not_found
     end
