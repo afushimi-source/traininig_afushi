@@ -1,5 +1,11 @@
+<style>
+  form { margin-bottom: 30px }
+</style>
+
 <h1>タスク作成</h1>
 
 <%= render 'form', task: @task %>
 
-<%= link_to "戻る", tasks_path(take_params), class: 'btn btn-info' %>
+<%= render 'labels/form', label: @label %>
+
+<%= link_to '戻る', :back, class: 'btn btn-info' %>

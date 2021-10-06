@@ -92,5 +92,14 @@ RSpec.describe 'tasks', type: :system do
       title_in_view = all('tbody tr td[1]').map(&:text)
       expect(title_in_view).not_to include(other_task.title)
     end
+
+    context 'when labels' do
+      before do
+        FactoryBot.create(:task, :with_labels, user_id: user.id)
+        visit current_path
+      end
+
+      it('can display with task has label') { expect(page).to have_css('.label-span') }
+    end
   end
 end

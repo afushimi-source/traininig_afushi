@@ -1,5 +1,5 @@
 module TasksHelper
-  ALLOW_TERM_PARAMS_KEYS = %w[sort_deadline_on sort_priority title_term status_term priority_term].freeze
+  ALLOW_TERM_PARAMS_KEYS = %w[sort_deadline_on sort_priority title_term status_term priority_term label_term].freeze
 
   def generate_status_link(display_text, task)
     link_to display_text, task_path(task.id, params: { task: { status: display_text } }), method: :put, class: (display_text == task.status ? 'link_disabled' : 'link_enabled')

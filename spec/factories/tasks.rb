@@ -8,5 +8,19 @@ FactoryBot.define do
     sequence(:created_at) { |n| now.since(n.days) }
     sequence(:updated_at) { |n| now.since(n.days) }
     association :user
+
+    transient do
+      label_names { nil }
+    end
+
+    trait :with_labels do
+      after(:build) do |task, evaluator|
+        if evaluator.label_names.nil?
+          create(:task_label, task: task, label: create(:label))
+        else
+          evaluator.label_names.each { |name| create(:task_label, task: task, label: create(:label, name: name)) }
+        end
+      end
+    end
   end
 end

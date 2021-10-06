@@ -5,11 +5,12 @@ module Tasks
     end
 
     def call(params)
-      return @relation unless params[:title_term] || params[:status_term] || params[:priority_term]
+      return @relation unless params[:title_term] || params[:status_term] || params[:priority_term] || params[:label_term]
 
       @relation.then { |relation| search_by_title(relation, params[:title_term]) }
                .then { |relation| search_by_status(relation, params[:status_term]) }
                .then { |relation| search_by_priority(relation, params[:priority_term]) }
+               .then { |relation| search_by_label(relation, params[:label_term]) }
     end
 
     private
@@ -32,6 +33,13 @@ module Tasks
       return relation if priority_term.blank?
 
       relation.where('priority = ?', priority_term)
+    end
+
+    def search_by_label(relation, label_term)
+      return relation if label_term.blank?
+
+      # lables.name like だけだと検索されたlabelしか表示されない
+      relation.where(id: relation.joins(:labels).where('labels.name LIKE ?', "%#{label_term}%").map(&:id))
     end
   end
 end

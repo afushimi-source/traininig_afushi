@@ -11,6 +11,8 @@ ja:
         deadline_on: '終了期限'
         priority: '優先順位'
         description: 'タスクの詳細'
+        labels: 'ラベル'
+        task_labels: 'ラベルとのリレーション'
       user:
         name: '名前'
         email: 'メールアドレス'
@@ -18,6 +20,8 @@ ja:
         password_confirmation: '確認用のパスワード'
         admin: '管理者'
         task_count: 'タスク数'
+      label:
+        name: 'ラベル名'
   tasks:
     flash:
       create_success: 'タスクの登録に成功しました'
@@ -39,6 +43,13 @@ ja:
       create_success: 'ログインに成功しました'
       create_error: 'メールアドレス、もしくはパスワードが登録されていません。'
       destroy_success: 'ログアウトに成功しました'
+  labels:
+    flash:
+      create_success: 'ラベル追加に成功しました'
+      create_error: 'ラベル追加に失敗しました'
+      edit_success: 'ラベル更新に成功しました'
+      edit_error: 'ラベル更新に失敗しました'
+      destroy_success: 'ラベル削除に成功しました'
   popup:
     confirm: '本当によろしいですか？'
   errors:
